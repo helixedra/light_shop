@@ -272,7 +272,7 @@ function cartCounter() {
         cart.map(item => {
             counter += parseInt(item.q)
         })
-        $('.cart-counter').html(counter).show()
+        $('.cart-counter').html(': ' + counter).show()
     } else {
         $('.cart-counter').html(counter).hide()
     }
@@ -369,7 +369,7 @@ $('body').on('click', '.plusqty', function () {
         if (isCheckout()) {
             // $('#item-' + id).data('item-sum', sum)
             // console.log($('#item-' + id));
-            console.log($('#item-' + id).data('item-sum'));
+            // console.log($('#item-' + id).data('item-sum'));
 
         }
     }
@@ -490,12 +490,12 @@ function createOrder() {
 function checkoutTotal() {
     let delivery = 350
     let itemsTotal = $('.checkout-cart > .item')
-    console.log(itemsTotal)
+    // console.log(itemsTotal)
     let total = 0
     itemsTotal.each(function () {
         total += $(this).data('item-sum')
     })
-    console.log(total)
+    // console.log(total)
     $('#checkoutTotal').html(numFormat(total) + ' ₴')
     $('#checkoutTotalEnd').html(numFormat(total + delivery) + ' ₴')
     // $('.item[data-item="' + id + '"]').data('item-sum', sum)

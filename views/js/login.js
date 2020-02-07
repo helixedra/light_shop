@@ -116,10 +116,10 @@ $(document).ready(function () {
 //Check if login on checkout page
 function isLoginCheckout() {
     if (+$('input[name=client_id]').val() === 0) {
-        console.log('not logged');
+        // console.log('not logged');
         $('.sub-login-box').addClass('visible')
     } else {
-        console.log('logged');
+        // console.log('logged');
         $('.sub-login-box').removeClass('visible').addClass('invisible')
     }
 }
@@ -148,12 +148,12 @@ function login(data) {
                     $(function () {
                         $('#loginModal').modal('toggle');
                     })
-                    $('.login-msg-success').html(result.message)
-                    $('#loginSuccess').show()
+                    $('.login-msg-success').html('😀 ' + result.message)
+                    $('#loginSuccess').fadeIn(400)
                     fadeError()
                 } else {
                     $('.login-msg').html(result.message)
-                    $('#loginError').show()
+                    $('#loginError').fadeIn(400)
                     fadeError()
                 }
             }
@@ -163,11 +163,13 @@ function login(data) {
 
 function statusLogin() {
     $.get('/user/login', { auth: 'status' }, function (res) {
-        if (res) {
+        if (res.status) {
             $('#user-menu').show()
+            $('#user-name').text(res.name.name)
             $('#guest-menu').hide()
         } else {
             $('#user-menu').hide()
+            $('#user-name').text('')
             $('#guest-menu').show()
         }
     })
@@ -175,13 +177,16 @@ function statusLogin() {
 
 function fadeError() {
 
-    setTimeout(() => {
-        location.reload();
-    }, 2000)
-    setTimeout(() => {
-        $('.alert').hide()
+    if (isCheckout()) {
+        setTimeout(() => {
+            location.reload();
+        }, 2000)
+    }
 
-    }, 10000)
+    setTimeout(() => {
+        $('.alert').fadeOut(800);
+
+    }, 4000)
 }
 
 

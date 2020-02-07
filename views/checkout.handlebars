@@ -1,186 +1,183 @@
-<div class="wrapper container container-sm container-md container-lg container-xl">
-    {{!-- {{> header }} --}}
-    <header class="checkout-header">
-        <!--Alerts-->
-        <div class="alert alert-success m-top-2" role="alert" style="display:none;" id="loginSuccess">
-            <div class="login-msg-success">
-                {{messages.success}}
-            </div>
-        </div>
-        <!--Alerts-->
-        <div class="container checkout">
-            <div class="row">
-                <div class="col">
-                    <a href="/"><img src="/images/lansot-logo.svg" alt="Lansot logo лансот логотип"></a>
-                </div>
-                <div class="col-auto">
-                    <div class="tel d-none d-lg-flex align-items-center"><i class="fab fa-viber"></i>097 112 26 16</div>
-                </div>
-            </div>
-        </div>
-        {{> login-modal }}
-    </header>
-    <main>
-        <section class="m-bot-2">
-            <form action="/cart/checkout" method="post" id="checkoutForm" name="checkoutForm">
-                <div class="container checkout">
-                    <h3 class="title checkout-title">Оформление заказа</h3>
-                    <div class="row">
-                        <div class="col-8">
-                            <!--checkout-section-->
-                            <div class="checkout-section">
-                                <div class="checkout-section-title">Товары в заказе</div>
-                                <div class="checkout-section-content">
-                                    <div class="checkout-cart"></div>
-                                </div>
-                            </div>
-                            <!--checkout-section-->
-                            <div class="checkout-section">
-                                <div class="checkout-section-title">Контактные данные</div>
-                                <div class="checkout-section-content">
-                                    <div class="row no-gutter">
-                                        <div class="col">
-                                            <div class="input-group">
-                                                <label for="name">Имя</label>
-                                                <input type="text" name="name" placeholder="Имя" id="nameField"
-                                                    value="{{#if user.name}}{{user.name}}{{/if}}">
-                                            </div>
-                                            <div class="input-group">
-                                                <label for="phone">Номер телефона</label>
-                                                <input type="text" name="phone" placeholder="Номер телефона"
-                                                    id="phoneField" value="{{#if user.phone}}{{user.phone}}{{/if}}">
-                                            </div>
-                                            <div class="input-group">
-                                                <label for="email">Электронная почта</label>
-                                                <input type="text" name="email" placeholder="Электронная почта"
-                                                    id="emailField" value="{{#if user.email}}{{user.email}}{{/if}}">
-                                            </div>
-                                        </div>
-                                        <div class="col d-flex text-center sub-login-box">
-                                            <div class="align-self-center">
-                                                <p class="text-2 block">Если у вас есть зарегистрированый аккаунт,
-                                                    войдите,
-                                                    чтобы ваш заказ был сохранен в кабинете</p>
-                                                <button type="button" class="primary-btn reset-btn" data-toggle="modal"
-                                                    data-target="#loginModal" id="loginModal">Войти</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--checkout-section-->
-                            <div class="checkout-section">
-                                <div class="checkout-section-title">Способ доставки</div>
-                                <div class="checkout-section-content">
-                                    <div class="delivery-option">
-                                        <div class="radio-select radio-active" data-delivery-option="Самовывоз">
-                                            <i class="far fa-check-circle"></i><span
-                                                class="radio-label">Самовывоз</span>
-                                        </div>
-                                        <div class="selected-content">
-                                            <div><strong>Киев, Ул. Лермонтовская 4</strong></div>
-                                            <a href="" class="text-sm">Посмотреть на карте</a>
-                                        </div>
-                                    </div>
-                                    <div class="delivery-option">
-                                        <div class="radio-select" data-delivery-option="Доставка">
-                                            <i class="far fa-circle"></i><span class="radio-label">Доставка</span
-                                                class="radio-label">
-                                        </div>
-                                        <div class="selected-content none">
-                                            <div class="input-group">
-                                                <label for="delivery-address">Адрес доставки</label>
-                                                {{#if user.address}}
-                                                    <select name="delivery_address">
-                                                        {{#each user.address}}
-                                                            <option>{{this}}</option>
-                                                        {{/each}}
-                                                    </select>
-                                                {{else}}
-                                                    <input type="text" name="delivery_address"
-                                                        placeholder="Адрес доставки">
-                                                {{/if}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="delivery-option">
-                                        <div class="radio-select" data-delivery-option="Новая почта">
-                                            <i class="far fa-circle"></i><span class="radio-label">Новая почта</span
-                                                class="radio-label">
-                                        </div>
-                                        <div class="selected-content none">
-                                            <div class="input-group">
-                                                <label for="np-address">Отделение</label>
-                                                <input type="text" name="np_address" placeholder="Отделение">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="delivery_option" value="Самовывоз">
-                                </div>
-                            </div>
-                            <!--checkout-section-->
-                            <div class="checkout-section">
-                                <div class="checkout-section-title">Способ оплаты</div>
-                                <div class="checkout-section-content">
-                                    <div class="payment-option">
-                                        <div class="radio-select radio-active"
-                                            data-payment-option="Наличными при получении">
-                                            <i class="far fa-check-circle"></i><span class="radio-label">Наличными при
-                                                получении</span>
-                                        </div>
-                                    </div>
-                                    <div class="payment-option">
-                                        <div class="radio-select" data-payment-option="Оплата картой">
-                                            <i class="far fa-circle"></i><span class="radio-label">Оплата картой</span
-                                                class="radio-label">
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="payment_option" value="Наличными при получении">
-                                </div>
-                            </div>
-                            <!--checkout-section-->
-                        </div>
-                        <div class="col-4">
-                            <div class="checkout-total sticky-top" style="top: 24px;">
-                                <div class="checkout-total-title">Ваш заказ</div>
-                                <div class="checkout-total-content">
-                                    <div class="checkout-total-receipt">
-                                        <div class="row no-gutters">
-                                            <div class="col-sm-8"><span id="total-qty">0</span> товаров на сумму</div>
-                                            <div class="col-sm-4 text-right text-bold" id="checkoutTotal">0 ₴</div>
-                                        </div>
-                                        <div class="row no-gutters">
-                                            <div class="col-sm-8">доставка</div>
-                                            <div class="col-sm-4 text-right text-bold">350 ₴</div>
-                                        </div>
-                                    </div>
-                                    <div class="checkout-total-result">
-                                        <div class="row no-gutters">
-                                            <div class="col-sm-4 text-bold ">Итого</div>
-                                            <div class="col-sm-8 text-right text-bold" id="checkoutTotalEnd">0 ₴</div>
-                                        </div>
-                                    </div>
+{{> login_modal }}
 
-                                    <div class="checkout-total-buttons">
-                                        {{!-- <div class="">К оплате</div>
-                                                                                                    <div class="checkout-total-sum"></div> --}}
-                                        <input type="hidden" name="client_id" value="{{user.id}}">
-                                        <input type="hidden" name="order" value="">
-                                        <input type="hidden" name="total" value="">
-                                        <button type="submit" class="primary-btn reset-btn w-100" id="checkoutSubmit"
-                                            name="checkoutSubmit">Оформить
-                                            заказ</button>
-                                        <div class="block w-100 text-center">
-                                            <a href="#back" id="closeCheckout" class="reset-link">Отмена</a>
+{{!-- {{> header }} --}}
+<header class="checkout-header">
+    <!--Alerts-->
+    <div class="alert alert-success m-top-2" role="alert" style="display:none;" id="loginSuccess">
+        <div class="login-msg-success">
+            {{messages.success}}
+        </div>
+    </div>
+    <!--Alerts-->
+    <div class="container checkout">
+        <div class="row">
+            <div class="col">
+                <a href="/" class="logo"></a>
+            </div>
+            <div class="col-auto">
+                {{!-- <div class="tel d-none d-lg-flex align-items-center"><i class="fab fa-viber"></i>097 112 26 16</div> --}}
+            </div>
+        </div>
+    </div>
+
+</header>
+<main>
+    <section class="m-bot-2">
+        <form action="/cart/checkout" method="post" id="checkoutForm" name="checkoutForm">
+            <div class="container checkout">
+                <h3 class="title checkout-title">Оформление заказа</h3>
+                <div class="row">
+                    <div class="col-8">
+                        <!--checkout-section-->
+                        <div class="checkout-section">
+                            <div class="checkout-section-title">Товары в заказе</div>
+                            <div class="checkout-section-content">
+                                <div class="checkout-cart"></div>
+                            </div>
+                        </div>
+                        <!--checkout-section-->
+                        <div class="checkout-section">
+                            <div class="checkout-section-title">Контактные данные</div>
+                            <div class="checkout-section-content">
+                                <div class="row no-gutter">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <label for="name">Имя</label>
+                                            <input type="text" name="name" placeholder="Имя" id="nameField"
+                                                value="{{#if user.name}}{{user.name}}{{/if}}">
                                         </div>
+                                        <div class="input-group">
+                                            <label for="phone">Номер телефона</label>
+                                            <input type="text" name="phone" placeholder="Номер телефона" id="phoneField"
+                                                value="{{#if user.phone}}{{user.phone}}{{/if}}">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="email">Электронная почта</label>
+                                            <input type="text" name="email" placeholder="Электронная почта"
+                                                id="emailField" value="{{#if user.email}}{{user.email}}{{/if}}">
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex text-center sub-login-box">
+                                        <div class="align-self-center">
+                                            <p class="text-2 block">Если у вас есть зарегистрированый аккаунт,
+                                                войдите,
+                                                чтобы ваш заказ был сохранен в кабинете</p>
+                                            <button type="button" class="primary-btn reset-btn" data-toggle="modal"
+                                                data-target="#loginModal" id="loginModal">Войти</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--checkout-section-->
+                        <div class="checkout-section">
+                            <div class="checkout-section-title">Способ доставки</div>
+                            <div class="checkout-section-content">
+                                <div class="delivery-option">
+                                    <div class="radio-select radio-active" data-delivery-option="Самовывоз">
+                                        <i class="far fa-check-circle"></i><span class="radio-label">Самовывоз</span>
+                                    </div>
+                                    <div class="selected-content">
+                                        <div><strong>Киев, Ул. Лермонтовская 4</strong></div>
+                                        <a href="" class="text-sm">Посмотреть на карте</a>
+                                    </div>
+                                </div>
+                                <div class="delivery-option">
+                                    <div class="radio-select" data-delivery-option="Доставка">
+                                        <i class="far fa-circle"></i><span class="radio-label">Доставка</span
+                                            class="radio-label">
+                                    </div>
+                                    <div class="selected-content none">
+                                        <div class="input-group">
+                                            <label for="delivery-address">Адрес доставки</label>
+                                            {{#if user.address}}
+                                                <select name="delivery_address">
+                                                    {{#each user.address}}
+                                                        <option>{{this}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            {{else}}
+                                                <input type="text" name="delivery_address" placeholder="Адрес доставки">
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="delivery-option">
+                                    <div class="radio-select" data-delivery-option="Новая почта">
+                                        <i class="far fa-circle"></i><span class="radio-label">Новая почта</span
+                                            class="radio-label">
+                                    </div>
+                                    <div class="selected-content none">
+                                        <div class="input-group">
+                                            <label for="np-address">Отделение</label>
+                                            <input type="text" name="np_address" placeholder="Отделение">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="delivery_option" value="Самовывоз">
+                            </div>
+                        </div>
+                        <!--checkout-section-->
+                        <div class="checkout-section">
+                            <div class="checkout-section-title">Способ оплаты</div>
+                            <div class="checkout-section-content">
+                                <div class="payment-option">
+                                    <div class="radio-select radio-active"
+                                        data-payment-option="Наличными при получении">
+                                        <i class="far fa-check-circle"></i><span class="radio-label">Наличными при
+                                            получении</span>
+                                    </div>
+                                </div>
+                                <div class="payment-option">
+                                    <div class="radio-select" data-payment-option="Оплата картой">
+                                        <i class="far fa-circle"></i><span class="radio-label">Оплата картой</span
+                                            class="radio-label">
+                                    </div>
+                                </div>
+                                <input type="hidden" name="payment_option" value="Наличными при получении">
+                            </div>
+                        </div>
+                        <!--checkout-section-->
+                    </div>
+                    <div class="col-4">
+                        <div class="checkout-total sticky-top" style="top: 24px;">
+                            <div class="checkout-total-title">Ваш заказ</div>
+                            <div class="checkout-total-content">
+                                <div class="checkout-total-receipt">
+                                    <div class="row no-gutters">
+                                        <div class="col-sm-8"><span id="total-qty">0</span> товаров на сумму</div>
+                                        <div class="col-sm-4 text-right text-bold" id="checkoutTotal">0 ₴</div>
+                                    </div>
+                                    <div class="row no-gutters">
+                                        <div class="col-sm-8">доставка</div>
+                                        <div class="col-sm-4 text-right text-bold">350 ₴</div>
+                                    </div>
+                                </div>
+                                <div class="checkout-total-result">
+                                    <div class="row no-gutters">
+                                        <div class="col-sm-4 text-bold ">Итого</div>
+                                        <div class="col-sm-8 text-right text-bold" id="checkoutTotalEnd">0 ₴</div>
+                                    </div>
+                                </div>
+
+                                <div class="checkout-total-buttons">
+                                    <input type="hidden" name="client_id" value="{{user.id}}">
+                                    <input type="hidden" name="order" value="">
+                                    <input type="hidden" name="total" value="">
+                                    <button type="submit" class="primary-btn reset-btn w-100" id="checkoutSubmit"
+                                        name="checkoutSubmit">Оформить
+                                        заказ</button>
+                                    <div class="block w-100 text-center">
+                                        <a href="#back" id="closeCheckout" class="reset-link">Отмена</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </section>
-    </main>
-    <script src="/js/checkout.js"></script>
-</div>
+            </div>
+        </form>
+    </section>
+</main>
+
+<script src="/js/checkout.js"></script>

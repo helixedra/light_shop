@@ -66,12 +66,14 @@ function updateData(query, params) {
 //     res.send(false)
 // })
 
-router.get('/login', function (req, res) {
+router.get('/login', async function (req, res) {
+    // console.log(req.session.passport.user);
+
 
     if (req.query.status === 'success') {
         res.send({
             status: 'success',
-            message: req.flash('success').toString()
+            message: req.flash('success').toString(),
         })
     } else if (req.query.status === 'error') {
         res.send({
@@ -80,9 +82,14 @@ router.get('/login', function (req, res) {
         })
     } else if (req.query.auth == 'status') {
         if (req.isAuthenticated()) {
-            res.send(true)
+            res.send({
+                status: true,
+                name: await getData('SELECT name FROM customers WHERE id = ?', req.session.passport.user)
+            })
         } else {
-            res.send(false)
+            res.send({
+                status: false
+            })
         }
     } else {
         res.status(404).send('404 NOT FOUND')

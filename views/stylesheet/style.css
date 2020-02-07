@@ -1,6 +1,139 @@
 body {
     font-family: 'Montserrat', sans-serif;
+    padding: 0 !important;
 }
+
+header {
+    max-width: 1920px;
+    height: 104px;
+    position: relative;
+    z-index: 999;
+    width: 100%;
+}
+
+.logo {
+    margin: 32px;
+    display: block;
+    width: 120px;
+    height: 32px;
+    background-image: url('/images/lansot-logo.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.top-buttons-container {
+    padding: 32px;
+}
+
+.top-button {
+    background-color: #ffffff40;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: #222222;
+    margin-left: 16px;
+    font-weight: 500;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    font-size: 1rem;
+}
+.top-button:focus {
+    outline: none;
+}
+
+
+.top-button > i {
+    font-size: 'Font Awesome 5 Pro';
+    font-weight: 400;
+    margin-right: 8px;
+}
+
+.top-button:hover {
+    color: #FFFFFF;
+    background: #222222;
+    animation-name: btn-h;
+    animation-duration: .7s;
+    animation-iteration-count: 1;
+}
+
+@keyframes btn-h {
+    0% {background: #ffffff00;}
+    100% {background: #222222;}
+}
+
+.hero {
+    height: 640px;
+    margin-top: -104px;
+}
+
+.hero > img {
+    position: absolute;
+    top: 0;
+    height: 640px;
+}
+
+.cover {
+    object-fit: cover;
+}
+
+.hero-caption {
+    z-index: 99;
+    position: relative;
+    padding: 64px;
+    color: #222222;
+    max-width: 800px;
+    min-width: 500px;
+}
+
+.hero-title {
+    margin-bottom: 16px;
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 2.5rem;
+}
+
+.hero-desc {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    opacity: .8;
+    font-weight: 500;
+}
+
+.content {
+    padding: 0 32px;
+}
+
+.modal-open {
+    overflow: auto !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .top-header {
     height: 92px;
 }
@@ -10,9 +143,7 @@ body {
     margin: 0;
     margin-bottom: 24px;
 }
-.logo {
-    width: fit-content;
-}
+
 nav {
     font-weight: 500;
     font-size: 1.1rem;
@@ -64,7 +195,7 @@ nav {
     font-size: 1.5rem;
     padding: 0;
 }
-.cart-counter {
+/* .cart-counter {
     width: fit-content;
     min-width: 22px;
     min-height: 22px;
@@ -79,7 +210,7 @@ nav {
     top: -3px;
     left: 20px;
     border: 3px solid #ffffff;
-}
+} */
 .carousel-inner {
     background-color: #000000 !important;
 }
@@ -161,7 +292,7 @@ nav {
 }
 .product-tile {
     display: block;
-    border: 1px solid #E5E5E5;
+    /* border: 1px solid #E5E5E5; */
     margin: 12px;
     position: relative;
     padding-bottom: 24px;
@@ -308,7 +439,7 @@ nav {
 
 footer {
     color: #ffffff;
-    background: #333333;
+    background: #222222;
     margin-top: 6rem;
     padding-top: 48px;
 }
@@ -1176,6 +1307,18 @@ a:hover {
 }
 .alert {
     /* margin-top: 1rem; */
+}
+.alert-success {
+    position: absolute;
+    z-index: 88;
+    left: 0;
+    right: 0;
+    margin: 0 30%;
+    top: 32px;
+    background-color: #222222;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 0px;
 }
 .alert > button > i {
     font-family: 'Font Awesome 5 Pro';
