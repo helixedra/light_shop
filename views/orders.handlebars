@@ -1,13 +1,13 @@
-<div class="wrapper container container-sm container-md container-lg container-xl">
-    {{> header }}
-    <main>
-        <h1>Мои заказы</h1>
+{{> header }}
+<main>
+    <section class="content">
         {{!-- <form action="/user/logout?_method=DELETE" method="POST">
         <button type="submit">LOGOUT</button>
     </form> --}}
-
-        <a href="/user/profile">Профиль</a>
-        <a href="/user/orders">Мои заказы</a>
+        <nav class="d-flex">
+            <a href="/user/profile" class="nav-link">Профиль</a>
+            <a href="/user/orders" class="nav-link active">Мои заказы</a>
+        </nav>
 
         <table class="table">
             {{#if orders}}
@@ -33,10 +33,9 @@
             {{else}}
                 <div>У вас нет никаких заказов</div>
             {{/if}}
-        </table class="table">
+        </table>
+    </section>
+</main>
 
-    </main>
-
-</div>
 
 {{> footer }}

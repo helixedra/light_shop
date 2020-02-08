@@ -466,7 +466,7 @@ function checkoutCartItems(data) {
         <div class="item-price" data-price="${value.price}">${numFormat(value.price)} ₴</div>
         <div class="item-qty" data-item="${value.id}" data-qty="${currentItemQty(value.id)}">
          <button class="reset-btn minusqty" data-item="${value.id}"><i class="far fa-minus"></i></button>
-            <input type="number" data-item="${value.id}" data-price="${value.price}" value="${currentItemQty(value.id)}" class="reset-btn qty">
+            <input type="number" data-item="${value.id}" data-price="${value.price}" value="${currentItemQty(value.id)}" size="3">
              <button class="reset-btn plusqty" data-item="${value.id}"><i class="far fa-plus"></i></button>
         </div>
         <div class="item-sum-price sum-price" data-item="${value.id}">${numFormat(currentItemQty(value.id) * value.price)} ₴</div>

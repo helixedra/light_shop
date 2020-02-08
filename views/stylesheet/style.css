@@ -42,7 +42,6 @@ header {
     outline: none;
 }
 
-
 .top-button > i {
     font-size: 'Font Awesome 5 Pro';
     font-weight: 400;
@@ -109,7 +108,129 @@ header {
 }
 
 
+.primary-btn {
+    height: 40px;
+    background-color: #222222;
+    border: none;
+    border-radius: 32px;
+    padding: 0 1rem;
+    color: #ffffff;
+    font-weight: 500;
+}
+.primary-btn:hover {
+    opacity: 0.8;
+}
 
+.nav-tabs{
+    border: none;
+}
+.nav-item {
+    font-weight: 500;
+    font-size: 1rem;
+}
+.nav-link {
+    color: #8a8a8a;
+    font-weight: 500;
+    border: 1px solid #00000020 !important;
+    margin-right: 8px;
+    border-radius: 32px !important;
+}
+.nav-link:hover {
+
+    background-color: #00000010;
+    color: #6b6b6b;
+    opacity: 1;
+    border-radius: 32px;
+}
+.nav-link.active {
+    border-radius: 32px;
+    border: 1px solid #e0e0e0 !important;
+    color: #000000 !important;
+    background: #e0e0e0 !important;
+}
+label {
+    font-size: .9rem;
+    color: #222222;
+    margin-bottom: .3rem;
+    font-weight: 500;
+}
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+input {
+    width: 100%;
+    border: 0;
+    font-size: 1rem;
+    height: 40px;
+    position: relative;
+    border-bottom: 1px solid #dedede;
+    font-weight: 600;
+}
+input::placeholder {
+    color: #c7c7c7;
+}
+input:focus {
+    outline: none;
+}
+.item-qty > input {
+    width: 40px;
+    text-align: center;
+}
+
+::-webkit-input-placeholder {
+  font-weight: 400;
+}
+:-ms-input-placeholder { 
+  font-weight: 400;
+}
+::placeholder {
+  font-weight: 400;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.secondary-btn {
+    height: 40px;
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 20px;
+    padding: 0 1rem;
+    font-weight: 600;
+    color: #222222;
+    margin-right: 1.5rem;
+}
+.secondary-btn:hover {
+    background-color: #e2e2e2;
+}
+.text-btn {
+    height: 40px;
+    background: none;
+    border: none;
+    border-radius: 20px;
+    padding: 0;
+    font-weight: 600;
+    color: #007bff;
+    margin-right: 1.5rem;
+}
+.text-btn:hover {
+    opacity: .8;
+}
+i {
+    font-family: 'Font Awesome 5 Pro';
+    font-weight: 400;
+}
+.m-right-0-5 {
+    margin-right: .5rem;
+}
+.form-title {
+    padding-top: 32px;
+    padding-bottom: 8px;
+}
+/* |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 
 
 
@@ -743,15 +864,7 @@ input[type=number] {
     text-align: right;
     margin-right: 32px;
 }
-.item-qty > input {
-    min-width: 2.7rem;
-    max-width: 3.5rem;
-    height: 2.5rem;
-    background-color: #f2f2f2;
-    border-radius: 6px;
-    border: none;
-    text-align: center;
-}
+
 .item-qty > button {
     background: none;
     border: none;
@@ -791,20 +904,7 @@ input[type=number] {
     margin: 3rem 0 0 0;
     text-align: right;
 }
-.cart-resume {
-    height: 2.5rem;
-    background-color: #f2f2f2;
-    height: 2.5rem;
-    border: none;
-    border-radius: 6px;
-    padding: 0 1rem;
-    font-weight: 500;
-    color: #333333;
-    margin-right: 1.5rem;
-}
-.cart-resume:hover {
-    background-color: #e2e2e2;
-}
+
 .cart-checkout {
     height: 2.5rem;
     background-color: #333333;
@@ -818,18 +918,7 @@ input[type=number] {
     opacity: 0.8;
 }
 
-.primary-btn {
-    height: 2.5rem;
-    background-color: #333333;
-    height: 2.5rem;
-    border: none;
-    border-radius: 6px;
-    padding: 0 1rem;
-    color: #ffffff;
-}
-.primary-btn:hover {
-    opacity: 0.8;
-}
+
 
 .modal.fade .modal-dialog {
     transition: -webkit-transform .3s ease-out;
@@ -958,32 +1047,7 @@ input[type=number] {
     max-width: 400px !important;
 }
 
-label {
-    font-size: .9rem;
-    color: #828282;
-    margin-bottom: .3rem;
-}
-.input-group {
-    margin-bottom: 1.5rem;
-    position: relative;
-}
 
-input {
-    width: 100%;
-    border: 0;
-    font-size: 0.9rem;
-    height: 40px;
-    background: #f2f2f2;
-    border-radius: 6px;
-    position: relative;
-    padding: 0 .8rem;
-}
-input::placeholder {
-    color: #c7c7c7;
-}
-input:focus {
-    outline: none;
-}
 input[type=checkbox] {
     display: block;
     width: 1.2rem;
