@@ -1,22 +1,17 @@
-<div class="wrapper container container-sm container-md container-lg container-xl">
-    {{> header }}
-    <main>
-        <section>
-            <h3 class="title">Оформление заказа</h3>
-            
-            <div>
-                
-                <p>{{message}}</p>
-
-                <p>Номер заказа: №{{order_id}}</p>
-                
-            </div>
-
-        </section>
-    </main>
-    {{#if success}}
+{{> header }}
+<main>
+    <section class="content">
+        <div class="checkout-success-container d-flex align-items-center flex-column">
+            <i class="far fa-badge-check success-icon"></i>
+            <div class="checkout-success-msg">Ваш заказ принят!</div>
+            <p class="checkout-success-details">Мы свяжемся с Вами в ближайшее время</p>
+            <p class="checkout-success-number">Номер заказа<span>№{{order_id}}</span></p>
+        </div>
+    </section>
+</main>
+{{#if success}}
     <script>localStorage.removeItem('cart-guest')</script>
-    {{/if}}
+{{/if}}
 </div>
 
 {{> footer }}

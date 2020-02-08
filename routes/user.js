@@ -286,50 +286,58 @@ router.get('/orders', checkAuth, async function (req, res) {
 
     let orders = await getData('SELECT * FROM orders WHERE client_id = ?', req.session.passport.user)
 
+
+
     if (orders !== null) {
+        if (!Array.isArray(orders)) orders = [orders]
+
         orders = orders.map(order => {
             order.order_items = itemParser(order.order_items)
             return order
         })
+
+        let ordersProductsIds = []
+
+        orders.map(item => {
+            item.order_items.map(item => {
+                if (!ordersProductsIds.includes(item.pid)) ordersProductsIds.push(item.pid)
+            })
+        })
+
+        ordersProductsIds = ordersProductsIds.join()
+
+        let ordersProductsData = await getData('SELECT id,ref,title,uri,cover_img,color,size FROM products WHERE id IN (' + ordersProductsIds + ')')
+
+        if (!Array.isArray(ordersProductsData)) ordersProductsData = [ordersProductsData]
+        let newOrders = orders.map(item => {
+            item.order_items = item.order_items.map(order => {
+                let product = ordersProductsData.find(p => p.id === order.pid)
+                return order = {
+                    id: order.pid,
+                    qty: order.qty,
+                    price: order.price,
+                    ref: product.ref,
+                    uri: product.uri,
+                    title: product.title,
+                    cover_img: product.cover_img,
+                    color: product.color,
+                    size: product.size
+                }
+            })
+            return item
+        })
+
+        res.render('orders', {
+            title: 'Orders',
+            orders: newOrders
+        })
+
     } else {
-        orders = null
+        res.render('orders', {
+            title: 'Orders',
+            orders: false
+        })
     }
-
-    let ordersProductsIds = []
-
-    orders.map(item => {
-        item.order_items.map(item => {
-            if (!ordersProductsIds.includes(item.pid)) ordersProductsIds.push(item.pid)
-        })
-    })
-
-    ordersProductsIds = ordersProductsIds.join()
-
-    const ordersProductsData = await getData('SELECT id,ref,title,uri,cover_img,color,size FROM products WHERE id IN (' + ordersProductsIds + ')')
-
-    let newOrders = orders.map(item => {
-        item.order_items = item.order_items.map(order => {
-            let product = ordersProductsData.find(p => p.id === order.pid)
-            return order = {
-                id: order.pid,
-                qty: order.qty,
-                price: order.price,
-                ref: product.ref,
-                uri: product.uri,
-                title: product.title,
-                cover_img: product.cover_img,
-                color: product.color,
-                size: product.size
-            }
-        })
-        return item
-    })
-
-    res.render('orders', {
-        title: 'Orders',
-        orders: newOrders
-    })
-
 })
 
 module.exports = router

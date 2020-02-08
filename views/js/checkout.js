@@ -148,7 +148,7 @@ let dataItems = getCartItemsIdLS()
 
 function checkoutTotal() {
     setTimeout(() => {
-        let delivery = 350
+        let delivery = +$('#deliveryPrice').val()
         let itemsTotal = $('.checkout-cart > .item')
         let total = 0
         itemsTotal.each(function () {
@@ -191,7 +191,27 @@ $(document).ready(function () {
     getCheckoutCart(dataItems)
     checkoutTotal()
     countQty()
+    delivery()
 })
+
+function delivery(option) {
+    if (option === 3) {
+        $('#deliveryPrice').val(500)
+        $('#deliveryPriceBlock').text('500')
+        checkoutTotal()
+    } else if (option === 2) {
+        $('#deliveryPrice').val(350)
+        $('#deliveryPriceBlock').text('350')
+        checkoutTotal()
+    } else {
+        $('#deliveryPrice').val(0)
+        $('#deliveryPriceBlock').text('0')
+        checkoutTotal()
+    }
+
+}
+
+
 function contentBlock(element, block) {
     //If this block has content
     if (element.parent().has('div.selected-content').length) {
@@ -204,6 +224,11 @@ function contentBlock(element, block) {
 function activeRadio(element) {
     //Get name of controls block
     let block = element.parent().attr('class')
+
+    if (block === 'delivery-option') {
+        delivery(element.parent().data('delivery-option-id'))
+    }
+
     //Remove active status from all elements of block 
     $('.' + block + '> .radio-select > i').removeClass().addClass('far fa-circle')
     $('.' + block + '> .radio-select').removeClass('radio-active')

@@ -1,30 +1,26 @@
 {{> login_modal }}
-
-{{!-- {{> header }} --}}
-<header class="checkout-header">
-    <!--Alerts-->
-    <div class="alert alert-success m-top-2" role="alert" style="display:none;" id="loginSuccess">
-        <div class="login-msg-success">
-            {{messages.success}}
+<div class="container checkout">
+    <header style="height: 60px;">
+        <!--Alerts-->
+        <div class="alert alert-success m-top-2" role="alert" style="display:none;" id="loginSuccess">
+            <div class="login-msg-success">
+                {{messages.success}}
+            </div>
         </div>
-    </div>
-    <!--Alerts-->
-    <div class="container checkout">
+        <!--Alerts-->
         <div class="row">
             <div class="col">
-                <a href="/" class="logo"></a>
+                <a href="/" class="logo" style="margin-left:0;"></a>
             </div>
             <div class="col-auto">
                 {{!-- <div class="tel d-none d-lg-flex align-items-center"><i class="fab fa-viber"></i>097 112 26 16</div> --}}
             </div>
         </div>
-    </div>
+    </header>
+    <main>
+        <section class="m-bot-2">
+            <form action="/cart/checkout" method="post" id="checkoutForm" name="checkoutForm">
 
-</header>
-<main>
-    <section class="m-bot-2">
-        <form action="/cart/checkout" method="post" id="checkoutForm" name="checkoutForm">
-            <div class="container checkout">
                 <h3 class="title checkout-title">Оформление заказа</h3>
                 <div class="row">
                     <div class="col-8">
@@ -73,7 +69,7 @@
                         <div class="checkout-section">
                             <div class="checkout-section-title">Способ доставки</div>
                             <div class="checkout-section-content">
-                                <div class="delivery-option">
+                                <div class="delivery-option" data-delivery-option-id="1">
                                     <div class="radio-select radio-active" data-delivery-option="Самовывоз">
                                         <i class="far fa-check-circle"></i><span class="radio-label">Самовывоз</span>
                                     </div>
@@ -82,7 +78,7 @@
                                         <a href="" class="text-sm">Посмотреть на карте</a>
                                     </div>
                                 </div>
-                                <div class="delivery-option">
+                                <div class="delivery-option" data-delivery-option-id="2">
                                     <div class="radio-select" data-delivery-option="Доставка">
                                         <i class="far fa-circle"></i><span class="radio-label">Доставка</span
                                             class="radio-label">
@@ -102,7 +98,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="delivery-option">
+                                <div class="delivery-option" data-delivery-option-id="3">
                                     <div class="radio-select" data-delivery-option="Новая почта">
                                         <i class="far fa-circle"></i><span class="radio-label">Новая почта</span
                                             class="radio-label">
@@ -150,7 +146,8 @@
                                     </div>
                                     <div class="row no-gutters">
                                         <div class="col-sm-8">доставка</div>
-                                        <div class="col-sm-4 text-right text-bold">350 ₴</div>
+                                        <div class="col-sm-4 text-right text-bold"><span
+                                                id="deliveryPriceBlock">350</span> ₴</div>
                                     </div>
                                 </div>
                                 <div class="checkout-total-result">
@@ -163,6 +160,7 @@
                                 <div class="checkout-total-buttons">
                                     <input type="hidden" name="client_id" value="{{user.id}}">
                                     <input type="hidden" name="order" value="">
+                                    <input type="hidden" name="delivery-price" value="" id="deliveryPrice">
                                     <input type="hidden" name="total" value="">
                                     <button type="submit" class="primary-btn reset-btn w-100" id="checkoutSubmit"
                                         name="checkoutSubmit">Оформить
@@ -175,9 +173,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </section>
-</main>
+
+            </form>
+        </section>
+    </main>
+</div>
 
 <script src="/js/checkout.js"></script>

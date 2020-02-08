@@ -230,6 +230,60 @@ i {
     padding-top: 32px;
     padding-bottom: 8px;
 }
+
+.checkout-success-msg {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 44px;
+    margin-top: 32px;
+}
+.checkout-success-number {
+    font-size: 1rem;
+    line-height: 20px;
+    text-align: center;
+    color: #828282;
+    margin-top: 32px;
+}
+.checkout-success-number > span {
+    font-weight: 600;
+    padding: 16px 32px;
+    height: 78px;
+    background: #F2F2F2;
+    border-radius: 60px;
+    font-size: 38px;
+    line-height: 46px;
+    text-align: center;
+    color: #828282;
+    display: table;
+    margin-top: 8px;
+}
+.checkout-success-container {
+    padding: 48px;
+    max-width: 640px;
+    height: 564px;
+    margin: 0 auto;
+    border: 1px solid #E0E0E0;
+    position: relative;
+    text-align: center;
+}
+.success-icon {
+    font-weight: normal;
+    font-size: 72px;
+    line-height: 72px;
+    background: #D8EFDF;
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+    padding: 45px;
+}
+.checkout-success-details {
+    margin-top: 24px;
+    width: 340px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #4F4F4F;
+}
 /* |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 
 

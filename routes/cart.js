@@ -152,7 +152,8 @@ router.post('/checkout', async function (req, res) {
             if (info, sales) {
                 //Render success template
                 res.render('checkout_success', {
-                    message: 'Ваш заказ принят',
+                    title: 'Ваш заказ принят',
+                    // message: 'Ваш заказ принят',
                     order_id: newOrder.insertId,
                     success: true
 

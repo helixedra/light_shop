@@ -62,7 +62,9 @@ function validateEmail(inputPrefix, email = null) {
     }
     return true
 }
-
+function isCheckout() {
+    return $('.checkout-cart').length ? true : false
+}
 // Validate password
 function validatePassword(inputPrefix, password = null) {
     if (password !== null) {
