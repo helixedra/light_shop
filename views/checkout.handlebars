@@ -84,16 +84,21 @@
                                             class="radio-label">
                                     </div>
                                     <div class="selected-content none">
-                                        <div class="input-group">
+                                        <div class="input-group flex-column">
                                             <label for="delivery-address">Адрес доставки</label>
                                             {{#if user.address}}
-                                                <select name="delivery_address">
+                                                <select class="custom-select" name="delivery_address"
+                                                    style="max-width:500px;">
                                                     {{#each user.address}}
-                                                        <option>{{this}}</option>
+                                                        <option value="{{this}}">{{this}}</option>
                                                     {{/each}}
+                                                    <option value="new">Другой адрес</option>
                                                 </select>
+                                                <input type="text" id="otherInput" name="delivery_address"
+                                                    placeholder="Введите адрес доставки" style="display: none;">
                                             {{else}}
-                                                <input type="text" name="delivery_address" placeholder="Адрес доставки">
+                                                <input type="text" name="delivery_address"
+                                                    placeholder="Введите адрес доставки">
                                             {{/if}}
                                         </div>
                                     </div>
@@ -180,3 +185,12 @@
 </div>
 
 <script src="/js/checkout.js"></script>
+<script>
+    $('select[name=delivery_address]').change(function () {
+        if ($(this).val() === 'new') {
+            $('#otherInput').show()
+        } else {
+            $('#otherInput').hide()
+        }
+    })
+</script>
