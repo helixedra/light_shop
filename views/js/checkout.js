@@ -198,14 +198,17 @@ function delivery(option) {
     if (option === 3) {
         $('#deliveryPrice').val(500)
         $('#deliveryPriceBlock').text('500')
+        $('input[name=delivery_opt_id]').val(3)
         checkoutTotal()
     } else if (option === 2) {
         $('#deliveryPrice').val(350)
         $('#deliveryPriceBlock').text('350')
+        $('input[name=delivery_opt_id]').val(2)
         checkoutTotal()
     } else {
         $('#deliveryPrice').val(0)
         $('#deliveryPriceBlock').text('0')
+        $('input[name=delivery_opt_id]').val(1)
         checkoutTotal()
     }
 

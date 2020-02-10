@@ -284,7 +284,7 @@ function itemParser(input) {
 
 router.get('/orders', checkAuth, async function (req, res) {
 
-    let orders = await getData('SELECT * FROM orders WHERE client_id = ?', req.session.passport.user)
+    let orders = await getData('SELECT * FROM orders WHERE client_id = ? ORDER BY id DESC', req.session.passport.user)
 
 
 

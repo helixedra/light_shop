@@ -68,6 +68,7 @@
                         <!--checkout-section-->
                         <div class="checkout-section">
                             <div class="checkout-section-title">Способ доставки</div>
+                            <input type="hidden" name="delivery_opt_id" value="0">
                             <div class="checkout-section-content">
                                 <div class="delivery-option" data-delivery-option-id="1">
                                     <div class="radio-select radio-active" data-delivery-option="Самовывоз">
@@ -79,6 +80,7 @@
                                     </div>
                                 </div>
                                 <div class="delivery-option" data-delivery-option-id="2">
+
                                     <div class="radio-select" data-delivery-option="Доставка">
                                         <i class="far fa-circle"></i><span class="radio-label">Доставка</span
                                             class="radio-label">
@@ -92,7 +94,7 @@
                                                     {{#each user.address}}
                                                         <option value="{{this}}">{{this}}</option>
                                                     {{/each}}
-                                                    <option value="new">Другой адрес</option>
+                                                    <option value="">Другой адрес</option>
                                                 </select>
                                                 <input type="text" id="otherInput" name="delivery_address"
                                                     placeholder="Введите адрес доставки" style="display: none;">
@@ -165,7 +167,7 @@
                                 <div class="checkout-total-buttons">
                                     <input type="hidden" name="client_id" value="{{user.id}}">
                                     <input type="hidden" name="order" value="">
-                                    <input type="hidden" name="delivery-price" value="" id="deliveryPrice">
+                                    <input type="hidden" name="delivery_price" value="" id="deliveryPrice">
                                     <input type="hidden" name="total" value="">
                                     <button type="submit" class="primary-btn reset-btn w-100" id="checkoutSubmit"
                                         name="checkoutSubmit">Оформить
@@ -187,7 +189,7 @@
 <script src="/js/checkout.js"></script>
 <script>
     $('select[name=delivery_address]').change(function () {
-        if ($(this).val() === 'new') {
+        if ($(this).val() === '') {
             $('#otherInput').show()
         } else {
             $('#otherInput').hide()

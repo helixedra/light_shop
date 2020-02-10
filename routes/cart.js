@@ -101,6 +101,13 @@ function combine(pid, item_title, qty, item_price) {
 /* CHECKOUT POST */
 router.post('/checkout', async function (req, res) {
 
+    console.log(req.body);
+
+    if (req.body.delivery_opt_id == 1) req.body.delivery_address = req.body.np_address = '';
+    if (req.body.delivery_opt_id == 3) req.body.delivery_address = '';
+
+    if (Array.isArray(req.body.delivery_address)) req.body.delivery_address = req.body.delivery_address.join('')
+
 
     /*
     --------------------
@@ -113,7 +120,7 @@ router.post('/checkout', async function (req, res) {
     //If data passed then insert to DB
     if (req.body.phone !== '' && req.body.email !== '' && req.body.order !== '') {
 
-        let newOrder = await insertData('INSERT INTO orders (id, client_name, client_phone, client_email, client_id, delivery_option, payment_option, delivery_address, np_address, order_items, total, order_status) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.body.name, req.body.phone, req.body.email, req.body.client_id, req.body.delivery_option, req.body.payment_option, req.body.delivery_address, req.body.np_address, req.body.order, req.body.total, "new"])
+        let newOrder = await insertData('INSERT INTO orders (id, client_name, client_phone, client_email, client_id, delivery_option, payment_option, delivery_address, delivery_price, np_address, order_items, total, order_status) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.body.name, req.body.phone, req.body.email, req.body.client_id, req.body.delivery_option, req.body.payment_option, req.body.delivery_address, req.body.delivery_price, req.body.np_address, req.body.order, req.body.total, "new"])
 
         let orderItems = combine(req.body.pid, req.body.item_title, req.body.qty, req.body.item_price)
 
