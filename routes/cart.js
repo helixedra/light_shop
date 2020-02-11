@@ -9,7 +9,7 @@ const mailer = require('../modules/mailer')
 router.post('/getcart', function (req, res) {
     let ids = Object.values(req.body).toString()
     if (ids) {
-        connection.query('SELECT id, uri, cover_img, title, code, price FROM products WHERE id IN (' + ids + ') ORDER BY FIND_IN_SET(id,"' + ids + '")', function (err, result) {
+        connection.query('SELECT id, uri, cover_img, title, price FROM products WHERE id IN (' + ids + ') ORDER BY FIND_IN_SET(id,"' + ids + '")', function (err, result) {
             if (err) throw err
             if (result === undefined) {
                 res.send()
