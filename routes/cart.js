@@ -1,26 +1,40 @@
 const express = require('express')
 const router = express.Router()
-const connection = require('../modules/db_connect')
 const insertData = require('../modules/insert_data')
 const getData = require('../modules/get_data')
+const getRawData = require('../modules/get_raw_data')
 const mailer = require('../modules/mailer')
+const NodeCache = require("node-cache");
+const myCache = new NodeCache({ stdTTL: 120, checkperiod: 140 });
+
+
+// Get data from DB and save to cache
+async function cacheCart(ids) {
+    // Get and save data to cache
+    let data = await getRawData('SELECT id, uri, cover_img, title, price FROM products WHERE id IN (' + ids + ') ORDER BY FIND_IN_SET(id,"' + ids + '")', false)
+    let cartData = {
+        ids: ids,
+        data: data
+    }
+    // Saving data to cache
+    myCache.set('cartData', cartData, 10000);
+    return data // return data from db
+}
 
 // Get product data from DB by ids
-router.post('/getcart', function (req, res) {
+router.post('/getcart', async function (req, res) {
     let ids = Object.values(req.body).toString()
-    if (ids) {
-        connection.query('SELECT id, uri, cover_img, title, price FROM products WHERE id IN (' + ids + ') ORDER BY FIND_IN_SET(id,"' + ids + '")', function (err, result) {
-            if (err) throw err
-            if (result === undefined) {
-                res.send()
-            } else {
-                res.send(result)
-            }
-        })
+    let cachedData = myCache.get('cartData')
+    let data
+    // Cache have no data
+    if (cachedData === undefined) {
+        data = await cacheCart(ids)
     } else {
-        res.send('ERROR')
+        data = (cachedData.ids === ids) ? cachedData.data : await cacheCart(ids)
     }
+    (data === null) ? res.send() : res.send(data)
 })
+
 
 /* CHECKOUT ROUTER */
 router.get('/checkout', async function (req, res) {
@@ -58,7 +72,7 @@ router.get('/checkout', async function (req, res) {
 
     } else {
 
-        //User in NOT legged in
+        //User in NOT logged in
         res.render('checkout', {
             title: 'Оформление заказа',
             cart: '',
@@ -143,11 +157,7 @@ router.post('/checkout', async function (req, res) {
                 template: 'checkout_sales_email',
                 context: {
                     order_id: newOrder.insertId,
-                    orders: orderItems, // replace with array
-                    // this.pid
-                    // this.item_title
-                    // this.qty
-                    // this.item_price
+                    orders: orderItems,
                     order_total: req.body.total,
                     delivery: `Способ доставка: ${req.body.delivery_option}; ${req.body.delivery_address} / НП: ${req.body.np_address}`,
                     payment: req.body.payment_option
@@ -160,7 +170,6 @@ router.post('/checkout', async function (req, res) {
                 //Render success template
                 res.render('checkout_success', {
                     title: 'Ваш заказ принят',
-                    // message: 'Ваш заказ принят',
                     order_id: newOrder.insertId,
                     success: true
 
