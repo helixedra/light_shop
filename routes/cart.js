@@ -172,14 +172,10 @@ router.post('/checkout', async function (req, res) {
                     title: 'Ваш заказ принят',
                     order_id: newOrder.insertId,
                     success: true
-
                 })
             }
         }
-
-
     }
-
 })
 
 module.exports = router

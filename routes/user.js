@@ -45,30 +45,7 @@ function updateData(query, params) {
 }
 
 
-
-// router.get('/login', checkNotAuth, function (req, res) {
-//     // req.flash('error', error)
-
-//     // let msg = ''
-
-//     // if (req.query.msg === 'success') {
-//     //     msg = 'User have been added seccessfully'
-//     // } else if (req.query.msg === 'error') {
-//     //     msg = 'Something went wrong. Please try again'
-//     // } else {
-//     //     msg = false
-//     // }
-
-//     // res.render('login', {
-//     //     title: 'Login',
-//     //     msg: msg
-//     // })
-//     res.send(false)
-// })
-
 router.get('/login', async function (req, res) {
-    // console.log(req.session.passport.user);
-
 
     if (req.query.status === 'success') {
         res.send({
@@ -139,16 +116,6 @@ router.get('/registration', checkNotAuth, function (req, res) {
 })
 
 router.post('/registration', [check('email').isEmail()], async (req, res) => {
-
-    /*
-    
-     -----------------------------
-
-     Check if email exist in db to prevent duplicate
-
-     -----------------------------
-    
-    */
 
     const errors = validationResult(req)
     const name = req.body.name
