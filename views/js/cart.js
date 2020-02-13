@@ -360,20 +360,10 @@ $('body').on('click', '.plusqty', function () {
         qty.val(parseInt(qty.val()) + 1)
         let sum = numFormat((qty.val() * price))
         $('.sum-price[data-item="' + id + '"]').html(sum + " ₴")
-
-
         totalLast()
         updateQuantity(id, qty.val())
         cartCounter()
-
-        if (isCheckout()) {
-            // $('#item-' + id).data('item-sum', sum)
-            // console.log($('#item-' + id));
-            // console.log($('#item-' + id).data('item-sum'));
-
-        }
     }
-
 });
 // ---
 
@@ -443,76 +433,76 @@ totalLast()
 
 
 
-function isCheckout() {
-    return $('.checkout-cart').length ? true : false
-}
+// function isCheckout() {
+//     return $('.checkout-cart').length ? true : false
+// }
 
 let dataItems = getCartItemsIdLS()
 // GET AND LOOP ITEMS IN CART
-function checkoutCartItems(data) {
-    // Pass 'data' from DB
-    // Loop through 'data' and generate html items for cart
-    let output = data.map(value => {
-        return `<div class="item d-flex align-items-center justify-content-between" id="item-${value.id}" data-item-sum="${(currentItemQty(value.id) * value.price)}">
-        <a href="/products/p/${value.uri}">
-        <img src="/images/products/${value.uri}/${value.cover_img}" class="item-img" alt="${value.title}">
-        </a>
-        <div class="item-info" data-pid="${value.id}">
-            <div class="item-title">
-                <a href="/products/p/${value.uri}" class="reset-link">${value.title}</a>
-            </div>
-            <div class="item-code">Код товара: <span>${value.id}</span></div>
-        </div>
-        <div class="item-price" data-price="${value.price}">${numFormat(value.price)} ₴</div>
-        <div class="item-qty" data-item="${value.id}" data-qty="${currentItemQty(value.id)}">
-         <button class="reset-btn minusqty" data-item="${value.id}"><i class="far fa-minus"></i></button>
-            <input type="number" data-item="${value.id}" data-price="${value.price}" value="${currentItemQty(value.id)}" size="3">
-             <button class="reset-btn plusqty" data-item="${value.id}"><i class="far fa-plus"></i></button>
-        </div>
-        <div class="item-sum-price sum-price" data-item="${value.id}">${numFormat(currentItemQty(value.id) * value.price)} ₴</div>
-        <button class="item-delete reset-btn" data-item="${value.id}"><i class="far fa-times"></i></button>
-    </div>`
-    }).join('')
+// function checkoutCartItems(data) {
+//     // Pass 'data' from DB
+//     // Loop through 'data' and generate html items for cart
+//     let output = data.map(value => {
+//         return `<div class="item d-flex align-items-center justify-content-between" id="item-${value.id}" data-item-sum="${(currentItemQty(value.id) * value.price)}">
+//         <a href="/products/p/${value.uri}">
+//         <img src="/images/products/${value.uri}/${value.cover_img}" class="item-img" alt="${value.title}">
+//         </a>
+//         <div class="item-info" data-pid="${value.id}">
+//             <div class="item-title">
+//                 <a href="/products/p/${value.uri}" class="reset-link">${value.title}</a>
+//             </div>
+//             <div class="item-code">Код товара: <span>${value.id}</span></div>
+//         </div>
+//         <div class="item-price" data-price="${value.price}">${numFormat(value.price)} ₴</div>
+//         <div class="item-qty" data-item="${value.id}" data-qty="${currentItemQty(value.id)}">
+//          <button class="reset-btn minusqty" data-item="${value.id}"><i class="far fa-minus"></i></button>
+//             <input type="number" data-item="${value.id}" data-price="${value.price}" value="${currentItemQty(value.id)}" size="3">
+//              <button class="reset-btn plusqty" data-item="${value.id}"><i class="far fa-plus"></i></button>
+//         </div>
+//         <div class="item-sum-price sum-price" data-item="${value.id}">${numFormat(currentItemQty(value.id) * value.price)} ₴</div>
+//         <button class="item-delete reset-btn" data-item="${value.id}"><i class="far fa-times"></i></button>
+//     </div>`
+//     }).join('')
 
-    return output
-    /* >>> Return html for cart items */
-}
+//     return output
+/* >>> Return html for cart items */
+// }
 
-function createOrder() {
-    let cartItems = $('.checkout-cart > .item')
-    let order = []
-    cartItems.each(function () {
-        order.push(`pid=${$(this).children('.item-info').data('pid')};qty=${$(this).children('.item-qty').data('qty')};price=${$(this).children('.item-price').data('price')}`)
-    })
-    return order
-}
+// function createOrder() {
+//     let cartItems = $('.checkout-cart > .item')
+//     let order = []
+//     cartItems.each(function () {
+//         order.push(`pid=${$(this).children('.item-info').data('pid')};qty=${$(this).children('.item-qty').data('qty')};price=${$(this).children('.item-price').data('price')}`)
+//     })
+//     return order
+// }
 
-function checkoutTotal() {
-    let delivery = 350
-    let itemsTotal = $('.checkout-cart > .item')
-    // console.log(itemsTotal)
-    let total = 0
-    itemsTotal.each(function () {
-        total += $(this).data('item-sum')
-    })
-    // console.log(total)
-    $('#checkoutTotal').html(numFormat(total) + ' ₴')
-    $('#checkoutTotalEnd').html(numFormat(total + delivery) + ' ₴')
-    // $('.item[data-item="' + id + '"]').data('item-sum', sum)
-}
+// function checkoutTotal() {
+//     let delivery = 350
+//     let itemsTotal = $('.checkout-cart > .item')
+//     // console.log(itemsTotal)
+//     let total = 0
+//     itemsTotal.each(function () {
+//         total += $(this).data('item-sum')
+//     })
+//     // console.log(total)
+//     $('#checkoutTotal').html(numFormat(total) + ' ₴')
+//     $('#checkoutTotalEnd').html(numFormat(total + delivery) + ' ₴')
+//     // $('.item[data-item="' + id + '"]').data('item-sum', sum)
+// }
 
-function getCheckoutCart(data) {
-    $.ajax({
-        url: "/cart/getcart",
-        type: "POST",
-        dataType: "json",
-        data: data,
-        success: function (result) {
-            let items = $.parseHTML(checkoutCartItems(result))
-            $('.checkout-cart').html(items)
-            checkoutTotal()
-        }
-    })
+// function getCheckoutCart(data) {
+//     $.ajax({
+//         url: "/cart/getcart",
+//         type: "POST",
+//         dataType: "json",
+//         data: data,
+//         success: function (result) {
+//             let items = $.parseHTML(checkoutCartItems(result))
+//             $('.checkout-cart').html(items)
+//             checkoutTotal()
+//         }
+//     })
 
-}
+// }
 

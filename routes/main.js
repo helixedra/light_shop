@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const getData = require('../modules/get_data')
-require('datejs')
 
 async function menuCategories() {
     return await getData('SELECT * FROM categories', false)
@@ -16,16 +15,12 @@ router.get('/', async function (req, res) {
     let sliderData = await getData('SELECT * FROM slider WHERE visible = 1', false);
     let productsData = await getData('SELECT * FROM products WHERE top = 1 AND primary_item = 1', false);
 
-    news.forEach(item => {
-        item.date = Date.parse(item.date).toString('d.MM.yyyy')
-    })
-
     await res.render('home', {
-        title: 'Homepage',
+        title: 'Мебель и декор в минималистичном стиле',
+        meta: '',
         categories: await menuCategories(),
         slider: sliderData,
         products: productsData,
-        news: news,
         messages: {
             success: res.locals.success,
             error: res.locals.error
