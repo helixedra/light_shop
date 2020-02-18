@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const getData = require('../modules/get_data')
+const seo = require('../seo')
 
 async function menuCategories() {
     return await getData('SELECT * FROM categories', false)
@@ -16,8 +17,8 @@ router.get('/', async function (req, res) {
     let productsData = await getData('SELECT * FROM products WHERE top = 1 AND primary_item = 1', false);
 
     await res.render('home', {
-        title: 'Мебель и декор в минималистичном стиле',
-        meta: '',
+        title: seo.home.title,
+        description: seo.home.description,
         categories: await menuCategories(),
         slider: sliderData,
         products: productsData,
@@ -34,7 +35,8 @@ router.get('/', async function (req, res) {
 router.get('/delivery', async function (req, res) {
 
     res.render('delivery', {
-        title: 'Оплата и доставка',
+        title: seo.delivery.title,
+        description: seo.delivery.description,
         categories: await menuCategories(),
     })
 
@@ -43,7 +45,8 @@ router.get('/delivery', async function (req, res) {
 router.get('/contacts', async function (req, res) {
 
     res.render('contacts', {
-        title: 'Контакты',
+        title: seo.contacts.title,
+        description: seo.contacts.description,
         categories: await menuCategories(),
     })
 

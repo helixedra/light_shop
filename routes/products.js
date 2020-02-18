@@ -52,6 +52,7 @@ router.get('/c/:ref', async function (req, res) {
 
             res.render('category', {
                 title: categoryData.title,
+                description: categoryData.title,
                 categories: getAllCategories,
                 category: categoryData,
                 // slider: sliderData,
@@ -71,6 +72,7 @@ router.get('/c/:ref', async function (req, res) {
 
             res.render('category', {
                 title: categoryData.title,
+                description: categoryData.title,
                 categories: getAllCategories,
                 category: categoryData,
                 // slider: sliderData,
@@ -90,6 +92,7 @@ router.get('/c/:ref', async function (req, res) {
 
             res.render('category', {
                 title: categoryData.title,
+                description: categoryData.title,
                 categories: getAllCategories,
                 category: categoryData,
                 // slider: sliderData,
@@ -154,6 +157,7 @@ router.get('/p/:id', async function (req, res) {
         if (productData !== undefined) {
             res.render('product', {
                 title: productData.title,
+                description: productData.meta_description,
                 product: productData,
                 categories: getAllCategories,
                 category: categoryData,
