@@ -11,7 +11,7 @@ const myCache = new NodeCache({ stdTTL: 120, checkperiod: 140 });
 // Get data from DB and save to cache
 async function cacheCart(ids) {
     // Get and save data to cache
-    let data = await getRawData('SELECT id, uri, cover_img, title, price FROM products WHERE id IN (' + ids + ') ORDER BY FIND_IN_SET(id,"' + ids + '")', false)
+    let data = (ids.length !== 0) ? await getRawData('SELECT id, uri, cover_img, title, price FROM products WHERE id IN (' + ids + ') ORDER BY FIND_IN_SET(id,"' + ids + '")', false) : false
     let cartData = {
         ids: ids,
         data: data
