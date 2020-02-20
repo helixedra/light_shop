@@ -10,23 +10,33 @@
     <a href="/" class="logo"></a>
     <div class="top-buttons-container">
 
-        <button type="button" class="top-button" data-toggle="modal" data-target="#cartModal">
+        <button type="button" class="top-button d-none d-sm-inline-flex" data-toggle="modal" data-target="#cartModal">
             <i class="far fa-shopping-cart"></i>Корзина<span class="cart-counter"></span>
         </button>
 
+        <!--mobile cart button-->
+        <button type="button" class="top-button d-inline-flex d-sm-none" data-toggle="modal" data-target="#cartModal">
+            <i class="far fa-shopping-cart"></i>
+        </button>
+        <!--mobile cart button-->
+
         <!--Show for guests-->
-        <button type="button" class="top-button" id="guest-menu" data-toggle="modal" data-target="#loginModal">
+        <button type="button" class="top-button d-none d-sm-inline-flex" id="guest-menu" data-toggle="modal"
+            data-target="#loginModal">
             <i class="far fa-user-circle"></i>Войти
+        </button>
+        <button type="button" class="top-button d-inline-flex d-sm-none" id="guest-menu" data-toggle="modal"
+            data-target="#loginModal">
+            <i class="far fa-user-circle"></i>
         </button>
         <!--Show for guests-->
 
         <!--Show for registred users-->
-
-
         <button type="button" class="top-button" id="user-menu" style="display: none;" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="far fa-user-circle"></i><span id="user-name"></span>
         </button>
+
         <div class="dropdown-menu dropdown-menu-right account-menu">
             <a href="/user/profile">Личные данные</a>
             <a href="/user/orders">Мои заказы</a>

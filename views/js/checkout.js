@@ -1,11 +1,5 @@
 // GET CART (ITEMS IDs) FROM LOCAL STORAGE
-
 function getCartItemsIdLS() {
-
-    // Check if user logged 
-    // ...
-    // Get data for specific user 
-    // ...
 
     // Get data for guest
 
@@ -34,11 +28,6 @@ function getCartItemsIdLS() {
 // GET QUANTITY BY ID FROM LOCAL STORAGE
 function currentItemQty(id) {
 
-    // Check if user logged 
-    // ...
-    // Get data for specific user 
-    // ...
-
     // Get data for guest
 
     let cart = JSON.parse(localStorage.getItem('cart-guest'))
@@ -62,10 +51,6 @@ function currentItemQty(id) {
 function getCartLS() {
 
     let cart = {}
-
-    // Registred user storage
-    // ...
-
     // Guest user storage
     cart = JSON.parse(localStorage.getItem('cart-guest'))
 
@@ -73,13 +58,9 @@ function getCartLS() {
     if (cart === undefined || cart === null || cart === '') {
         cart = false
     }
-
     // >>> Return data from local storage
-
     return cart
 }
-
-
 
 // ******** REMOVE ITEM FROM LOCAL STORAGE BY ID *********
 function removeCartItemsLS(id) {
@@ -106,25 +87,18 @@ function saveCartToLS(data) {
     // If data pass 'false' local storage will be removed
 
     if (data) {
-        // Check if user logged 
-        // ...
 
         // Save cart for guest
         localStorage.setItem('cart-guest', JSON.stringify(data))
     } else {
-        // Check if user logged 
-        // ...
 
         // Remove cart for guest
         localStorage.removeItem('cart-guest')
     }
 
 }
-// ----------------------------------
-
 
 // ----- UPDATE QUANTIRY IN LOCAL STORAGE -----
-
 function updateQuantity(id, value) {
 
     let cart = getCartLS()
@@ -138,11 +112,6 @@ function updateQuantity(id, value) {
 
     saveCartToLS(cart)
 }
-
-// ----------------------------------------
-
-
-
 
 let dataItems = getCartItemsIdLS()
 
@@ -211,9 +180,7 @@ function delivery(option) {
         $('input[name=delivery_opt_id]').val(1)
         checkoutTotal()
     }
-
 }
-
 
 function contentBlock(element, block) {
     //If this block has content
@@ -291,18 +258,13 @@ function getCheckoutCart(data) {
             // checkoutTotal()
         }
     })
-
 }
-
 
 
 // ----- PRICE FORMAT -----
 function numFormat(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ")
 }
-// -----------------------
-
-
 
 // --- PLUS BUTTON ---
 $('body').on('click', '.plusqty', function () {
@@ -321,7 +283,6 @@ $('body').on('click', '.plusqty', function () {
         checkoutTotal()
     }
 });
-// ---
 
 // --- MINUS BUTTON ---
 $('body').on('click', '.minusqty', function () {
@@ -340,7 +301,6 @@ $('body').on('click', '.minusqty', function () {
         checkoutTotal()
     }
 })
-// ---
 
 // --- INPUT CHANGE EVENT ---
 $('body').on('change', '.qty', function () {
@@ -368,7 +328,6 @@ $('body').on('change', '.qty', function () {
     }
 
 })
-// ---
 
 // --- DELETE ITEM BUTTON ---
 $('body').on('click', '.item-delete', function () {
@@ -381,7 +340,6 @@ $('body').on('click', '.item-delete', function () {
     setStatus(getCartItemsIdLS())
     checkoutTotal()
 })
-// ---
 
 function createOrder() {
     let cartItems = $('.checkout-cart > .item')
@@ -391,105 +349,3 @@ function createOrder() {
     })
     return order
 }
-
-
-//     // Checkout cart
-
-
-//     let dataItems = getCartItemsIdLS()
-//     // GET AND LOOP ITEMS IN CART
-//     function checkoutCartItems(data) {
-//         // Pass 'data' from DB
-//         // Loop through 'data' and generate html items for cart
-//         let output = data.map(value => {
-//             //     return `<div class="item d-flex align-items-center justify-content-between" id="item-${value.id}" data-item-sum="${(currentItemQty(value.id) * value.price)}">
-//             //     <a href="/products/p/${value.uri}">
-//             //     <img src="/images/products/${value.uri}/${value.cover_img}" class="item-img" alt="${value.title}">
-//             //     </a>
-//             //     <div class="item-info" data-pid="${value.id}">
-//             //         <div class="item-title">
-//             //             <a href="/products/p/${value.uri}" class="reset-link">${value.title}</a>
-//             //         </div>
-//             //         <div class="item-code">Код товара: <span>${value.id}</span></div>
-//             //     </div>
-//             //     <div class="item-price" data-price="${value.price}">${numFormat(value.price)} ₴</div>
-//             //     <div class="item-qty" data-qty="${currentItemQty(value.id)}">
-//             //     ${currentItemQty(value.id)}
-//             //         <input type="hidden" data-item="${value.id}" data-price="${value.price}" value="${currentItemQty(value.id)}">
-
-//             //     </div>
-//             //     <div class="item-sum-price sum-price" data-item="${value.id}">${numFormat(currentItemQty(value.id) * value.price)} ₴</div>
-
-//             // </div>`
-
-//             return `<div class="item d-flex align-items-center justify-content-between" id="item-${value.id}" data-item-sum="${(currentItemQty(value.id) * value.price)}">
-//         <a href="/products/p/${value.uri}">
-//         <img src="/images/products/${value.uri}/${value.cover_img}" class="item-img" alt="${value.title}">
-//         </a>
-//         <div class="item-info" data-pid="${value.id}">
-//             <div class="item-title">
-//                 <a href="/products/p/${value.uri}" class="reset-link">${value.title}</a>
-//             </div>
-//             <div class="item-code">Код товара: <span>${value.id}</span></div>
-//         </div>
-//         <div class="item-price" data-price="${value.price}">${numFormat(value.price)} ₴</div>
-//         <div class="item-qty" data-qty="${currentItemQty(value.id)}">
-
-//             <input type="number" data-item="${value.id}" data-price="${value.price}" value="${currentItemQty(value.id)}" class="reset-btn qty" readonly>
-
-//         </div>
-//         <div class="item-sum-price sum-price" data-item="${value.id}">${numFormat(currentItemQty(value.id) * value.price)} ₴</div>
-
-//     </div>`
-//         }).join('')
-
-//         return output
-//         /* >>> Return html for cart items */
-//     }
-
-//     function createOrder() {
-//         let cartItems = $('.checkout-cart > .item')
-//         let order = []
-//         cartItems.each(function () {
-//             order.push(`pid=${$(this).children('.item-info').data('pid')};qty=${$(this).children('.item-qty').data('qty')};price=${$(this).children('.item-price').data('price')}`)
-//         })
-//         return order
-//     }
-
-//     function checkoutTotal() {
-//         let itemsTotal = $('.checkout-cart > .item')
-//         let total = 0
-//         itemsTotal.each(function () {
-//             total += $(this).data('item-sum')
-//         })
-
-//         $('.checkout-total-sum').html(numFormat(total) + ' ₴')
-//         $('input[name=order]').val(createOrder())
-//         $('input[name=total]').val(total)
-//     }
-
-//     function getCheckoutCart(data) {
-//         $.ajax({
-//             url: "/cart/getcart",
-//             type: "POST",
-//             dataType: "json",
-//             data: data,
-//             success: function (result) {
-//                 let items = $.parseHTML(checkoutCartItems(result))
-//                 $('.checkout-cart').html(items)
-//                 checkoutTotal()
-//             }
-//         })
-
-//     }
-
-
-
-//     // getCheckoutCart(dataItems)
-
-//     // 
-//     getCheckoutCart(dataItems)
-//     // getCheckoutCart(dataItems)
-
-// })
-

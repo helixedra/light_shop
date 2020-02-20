@@ -47,9 +47,10 @@ header {
 }
 
 .top-button > i {
-    font-size: 'Font Awesome 5 Pro';
+    font-family: 'Font Awesome 5 Pro';
     font-weight: 400;
     margin-right: 8px;
+    font-size: 24px;
 }
 
 .top-button:hover {
@@ -431,6 +432,59 @@ h4 {
 .text-grey {
     color: #828282;
 }
+
+/* Responsive */
+
+@media (max-width: 576px) {
+
+    .logo {
+        width: 200px;
+    }
+    .hero {
+        height: 100vh;
+    }
+    .hero > img {
+        height: 100vh;
+        object-position: 0;
+    }
+    .hero-caption {
+        padding: 32px;
+        max-width: 100vw;
+        min-width: auto;
+    }
+    .hero-title {
+        font-size: 1.8rem;
+        line-height: 2.2rem;
+    }
+    .top-buttons-container {
+        width: 100%;
+        text-align: right;
+    }
+    .top-buttons-container {
+        /* padding: 0; */
+    }
+    .top-button {
+        background: none;
+        padding: 8px 2px;
+        border-radius: 0;
+    }
+    .top-button:hover {
+        color: #000000 !important;
+        background: #00000000 !important;
+        animation: none;
+    }
+    .top-button > i {
+        font-size: 1.5rem;
+        margin: 0 8px 0 8px;
+    }
+
+}
+
+
+
+
+
+
 /* |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 
 

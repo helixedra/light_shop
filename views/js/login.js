@@ -207,7 +207,7 @@ $('.pass-eye').on('click', function () {
 })
 
 // Registration
-$("input#regSubmit").click(function (e) {
+$("button#regSubmit").click(function (e) {
     e.preventDefault();
 
     // Return validation status true||false
