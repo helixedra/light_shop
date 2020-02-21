@@ -7,7 +7,6 @@ const mailer = require('../modules/mailer')
 const NodeCache = require("node-cache");
 const myCache = new NodeCache({ stdTTL: 120, checkperiod: 140 });
 
-
 // Get data from DB and save to cache
 async function cacheCart(ids) {
     // Get and save data to cache
@@ -114,8 +113,6 @@ function combine(pid, item_title, qty, item_price) {
 
 /* CHECKOUT POST */
 router.post('/checkout', async function (req, res) {
-
-    console.log(req.body);
 
     if (req.body.delivery_opt_id == 1) req.body.delivery_address = req.body.np_address = '';
     if (req.body.delivery_opt_id == 3) req.body.delivery_address = '';

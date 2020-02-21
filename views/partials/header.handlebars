@@ -18,6 +18,14 @@
         <button type="button" class="top-button d-inline-flex d-sm-none" data-toggle="modal" data-target="#cartModal">
             <i class="far fa-shopping-cart"></i>
         </button>
+        <button type="button" class="top-button d-inline-flex d-sm-none" id="guest-menu-mobile" data-toggle="modal"
+            data-target="#loginModal">
+            <i class="far fa-user-circle"></i>
+        </button>
+        <button type="button" class="top-button d-inline-flex d-sm-none" id="user-menu-mobile"
+            style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="far fa-user-circle"></i>
+        </button>
         <!--mobile cart button-->
 
         <!--Show for guests-->
@@ -25,15 +33,11 @@
             data-target="#loginModal">
             <i class="far fa-user-circle"></i>Войти
         </button>
-        <button type="button" class="top-button d-inline-flex d-sm-none" id="guest-menu" data-toggle="modal"
-            data-target="#loginModal">
-            <i class="far fa-user-circle"></i>
-        </button>
         <!--Show for guests-->
 
         <!--Show for registred users-->
-        <button type="button" class="top-button" id="user-menu" style="display: none;" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="top-button d-none d-sm-inline-flex" id="user-menu"
+            style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="far fa-user-circle"></i><span id="user-name"></span>
         </button>
 

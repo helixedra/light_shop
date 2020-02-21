@@ -167,12 +167,16 @@ function statusLogin() {
     $.get('/user/login', { auth: 'status' }, function (res) {
         if (res.status) {
             $('#user-menu').show()
+            $('#user-menu-mobile').show()
             $('#user-name').text(res.name.name)
-            $('#guest-menu').hide()
+            $('#guest-menu').attr('style', 'display:none !important;')
+            $('#guest-menu-mobile').attr('style', 'display:none !important;')
         } else {
-            $('#user-menu').hide()
+            $('#user-menu').attr('style', 'display:none !important;')
+            $('#user-menu-mobile').attr('style', 'display:none !important;')
             $('#user-name').text('')
             $('#guest-menu').show()
+            $('#guest-menu-mobile').show()
         }
     })
 }
