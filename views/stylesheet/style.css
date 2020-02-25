@@ -463,12 +463,19 @@ h4 {
     .logo {
         width: 192px;
     }
-    .hero {
-        height: 100vh;
+    .hero > div {
+        /* height: 100vh; */
+        height: 400px !important;
+        width: 100vw !important;
     }
-    .hero > img {
-        height: 100vh;
-        object-position: 0;
+    #carouselFade > div > div.carousel-item > img {
+        object-position: 50% 50%;
+        width: auto !important;
+        height: 400px;
+    }
+    .hero > div > div {
+        height: 400px;
+        width: 100vw;
     }
     .hero-caption {
         padding: 32px;
