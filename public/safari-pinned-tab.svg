@@ -1,16 +1,7 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
- "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="256.000000pt" height="256.000000pt" viewBox="0 0 256.000000 256.000000"
- preserveAspectRatio="xMidYMid meet">
-<metadata>
-Created by potrace 1.11, written by Peter Selinger 2001-2013
-</metadata>
-<g transform="translate(0.000000,256.000000) scale(0.100000,-0.100000)"
-fill="#000000" stroke="none">
-<path d="M700 1625 l0 -935 520 0 520 0 0 -345 0 -345 410 0 410 0 0 765 0
-765 -37 0 c-63 0 -214 28 -288 53 -365 125 -629 436 -690 812 -8 50 -15 107
--15 128 l0 37 -415 0 -415 0 0 -935z"/>
-</g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<polygon points="153,0 141,0 111.5,0 70,0 70,93.5 70,187 122,187 174,187 174,221.5 174,256 215,256 256,256 256,179.5 256,110.9 
+	256,103 256,0 "/>
 </svg>

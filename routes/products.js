@@ -164,7 +164,7 @@ router.get('/p/:id', async function (req, res) {
                 colors: (Array.isArray(colorOptions)) ? [...colorOptions] : [colorOptions],
                 sizes: convertData(sizeOptions),
                 thumbs: toArray(productData.images),
-                relatedProducts: { relatedProducts }
+                relatedProducts: (Array.isArray(relatedProducts)) ? [...relatedProducts] : [relatedProducts]
             })
         } else {
             res.status(404).render('404')
