@@ -7,7 +7,7 @@ router.get('/', async function (req, res) {
     res.render('home', {
         title: seo.home.title,
         description: seo.home.description,
-        products: await getData('SELECT * FROM products WHERE top = 1 AND primary_item = 1', false),
+        products: await getData('SELECT * FROM products WHERE top = 1 AND primary_item = 1 ORDER BY id DESC', false),
         messages: {
             success: req.flash('success').toString(),
             error: req.flash('error').toString()
