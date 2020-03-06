@@ -1,147 +1,76 @@
-<!--Alerts-->
-<div class="alert alert-success m-top-2" role="alert" style="display:none;" id="loginSuccess">
-    <div class="login-msg-success">
-        {{messages.success}}
+<div class="wrapper">
+    <!--Alerts-->
+    <div class="alert alert-success m-top-2" role="alert" style="display:none;" id="loginSuccess">
+        <div class="login-msg-success">
+            {{messages.success}}
+        </div>
     </div>
+    <!--Alerts-->
+
+    <header class="home-header d-flex align-items-center justify-content-between">
+        <div class="left-header d-flex align-items-center">
+            <a href="/" class="logo"></a>
+            <nav>
+                <div id="catalog-menu-container">
+                    <div class="catalog-button">Каталог</div>
+                    <ul class="dropdown-menu" id="catalog-menu">
+                        {{#each categories}}
+                            <li><a href="/products/c/{{ref}}">{{title}}</a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="top-buttons-container">
+            <button type="button" class="top-button d-none d-sm-inline-flex" data-toggle="modal"
+                data-target="#cartModal">
+                <i class="far fa-shopping-cart"></i>Корзина<span class="cart-counter"></span>
+            </button>
+
+            <!--mobile cart button-->
+            <button type="button" class="top-button d-inline-flex d-sm-none" data-toggle="modal"
+                data-target="#cartModal">
+                <i class="far fa-shopping-cart"></i>
+            </button>
+            <button type="button" class="top-button d-inline-flex d-sm-none" id="guest-menu-mobile" data-toggle="modal"
+                data-target="#loginModal">
+                <i class="far fa-user-circle"></i>
+            </button>
+            <button type="button" class="top-button d-inline-flex d-sm-none" id="user-menu-mobile"
+                style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-user-circle"></i>
+            </button>
+            <!--mobile cart button-->
+
+            <!--Show for guests-->
+            <button type="button" class="top-button d-none d-sm-inline-flex" id="guest-menu" data-toggle="modal"
+                data-target="#loginModal">
+                <i class="far fa-user-circle"></i>Войти
+            </button>
+            <!--Show for guests-->
+
+            <!--Show for registred users-->
+            <button type="button" class="top-button d-none d-sm-inline-flex" id="user-menu"
+                style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-user-circle"></i><span id="user-name"></span>
+            </button>
+
+            <div class="dropdown-menu dropdown-menu-right account-menu">
+                <a href="/user/profile">Личные данные</a>
+                <a href="/user/orders">Мои заказы</a>
+                <a href="/user/logout">Выйти</a>
+            </div>
+            <!--Show for registred users-->
+        </div>
+
+
+    </header>
+    {{> cart_modal }}
+    {{> login_modal }}
+
+    <script>
+        $(document).ready(function () {
+            statusLogin()
+        })
+    </script>
 </div>
-<!--Alerts-->
-
-<header class="home-header d-flex align-items-center justify-content-between">
-    <a href="/" class="logo"></a>
-    <div class="top-buttons-container">
-
-        <button type="button" class="top-button d-none d-sm-inline-flex" data-toggle="modal" data-target="#cartModal">
-            <i class="far fa-shopping-cart"></i>Корзина<span class="cart-counter"></span>
-        </button>
-
-        <!--mobile cart button-->
-        <button type="button" class="top-button d-inline-flex d-sm-none" data-toggle="modal" data-target="#cartModal">
-            <i class="far fa-shopping-cart"></i>
-        </button>
-        <button type="button" class="top-button d-inline-flex d-sm-none" id="guest-menu-mobile" data-toggle="modal"
-            data-target="#loginModal">
-            <i class="far fa-user-circle"></i>
-        </button>
-        <button type="button" class="top-button d-inline-flex d-sm-none" id="user-menu-mobile"
-            style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="far fa-user-circle"></i>
-        </button>
-        <!--mobile cart button-->
-
-        <!--Show for guests-->
-        <button type="button" class="top-button d-none d-sm-inline-flex" id="guest-menu" data-toggle="modal"
-            data-target="#loginModal">
-            <i class="far fa-user-circle"></i>Войти
-        </button>
-        <!--Show for guests-->
-
-        <!--Show for registred users-->
-        <button type="button" class="top-button d-none d-sm-inline-flex" id="user-menu"
-            style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="far fa-user-circle"></i><span id="user-name"></span>
-        </button>
-
-        <div class="dropdown-menu dropdown-menu-right account-menu">
-            <a href="/user/profile">Личные данные</a>
-            <a href="/user/orders">Мои заказы</a>
-            <a href="/user/logout">Выйти</a>
-        </div>
-
-        <!--Show for registred users-->
-    </div>
-
-
-</header>
-{{> cart_modal }}
-{{> login_modal }}
-
-
-
-
-
-
-{{!-- <div class="top-header row align-items-center justify-content-between">
-        <div class="col-2 logo">
-            <a href="/"><img src="/images/lansot-logo.svg" alt="Lansot logo лансот логотип"></a>
-        </div>
-        <div class="search col-8 d-none d-lg-block dropdown">
-            <input type="text" autocomplete="off" placeholder="Поиск" id="search">
-            <div class="search-dropdown dropdown-menu"></div>
-        </div> --}}
-<!-- Mobile Menu Button -->
-{{!-- <button class="mobile-menu-icon col-1 d-sm-block d-lg-none" data-toggle="collapse" href="#mobileMenu"
-            role="button" aria-expanded="false" aria-controls="mobileMenu">
-            <i class="far fa-bars"></i>
-        </button> --}}
-<!-- Mobile Menu Button -->
-{{!-- <div class="tools d-flex col-2 align-items-center flex-nowrap justify-content-end">
-            <div class="cart-icon">
-                <div>
-                    <button type="button" class="btn reset-btn tool-hover" data-toggle="modal" data-target="#cartModal">
-                        <i class="far fa-shopping-cart"></i>
-                        <div class="cart-counter"></div>
-                    </button>
-                </div>
-            </div>
-            <div class="account-icon"> --}}
-<!--Show for guests-->
-{{!-- <div id="guest-menu">
-                    <button class="btn reset-btn tool-hover" data-toggle="modal" data-target="#loginModal">
-                        <i class="far fa-user-circle"></i>
-                    </button>
-                </div> --}}
-<!--Show for registred users-->
-{{!-- <div id="user-menu" style="display: none;">
-        <button class="btn reset-btn tool-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="far fa-user-circle"></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right account-menu">
-            <a href="/user/profile">Личные данные</a>
-            <a href="/user/orders">Мои заказы</a>
-            <a href="/user/logout">Выйти</a>
-        </div>
-    </div>
-    
-    </div>
-    </div>
-    </div> --}}
-{{!-- <div class="bottom-header d-none d-lg-flex align-items-center justify-content-between">
-        <nav class="d-none d-lg-flex justify-content-between">
-            <div class="dropdown">
-                <button class="btn catalog-dropdown-button dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Каталог</button>
-                <div class="dropdown-menu catalog-dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {{#each categories}}
-                        <a href="/products/c/{{this.ref}}">{{this.title}}</a>
-                    {{/each}}
-                </div>
-            </div>
-            <div class="sub-nav d-flex align-items-center">
-                <a href="/news">Новости</a>
-                <a href="/delivery">Оплата и доставка</a>
-                <a href="/contacts">Контакты</a>
-            </div>
-            <div class="tel d-none d-lg-flex align-items-center"><i class="fab fa-viber"></i>097 112 26 16</div>
-        </nav>
-    </div> --}}
-
-
-<!-- Mobile menu -->
-{{!-- <div class="collapse" id="mobileMenu">
-    <nav class="mobile-menu d-flex flex-column">
-        <a href="#">Каталог</a>
-        <a href="/news">Новости</a>
-        <a href="/delivery">Оплата и доставка</a>
-        <a href="/contacts">Контакты</a>
-    </nav>
-</div> --}}
-<!-- Mobile menu -->
-
-
-
-
-<script>
-    $(document).ready(function () {
-        statusLogin()
-    })
-</script>

@@ -1,60 +1,63 @@
 {{> header }}
 <main>
-    <section class="content">
-        <div class="page-header d-flex justify-content-between align-items-center">
-            <div class="page-header-left">
-                <div class="breadcrumps">
-                    <ul class="d-flex align-items-center">
-                        <li><a href="/">Главная</a></li>
-                        <li><a href="/products/c/{{category.ref}}">{{category.title}}</a></li>
-                    </ul>
+    <div class="wrapper">
+        <section class="content">
+            <div class="page-header d-flex justify-content-between align-items-center">
+                <div class="page-header-left">
+                    <div class="breadcrumps">
+                        <ul class="d-flex align-items-center">
+                            <li><a href="/">Главная</a></li>
+                            <li><a href="/products/c/{{category.ref}}">{{category.title}}</a></li>
+                        </ul>
+                    </div>
+                    <h3 class="section-title sub-section m-top-2">{{category.title}}</h3>
                 </div>
-                <h3 class="section-title sub-section m-top-2">{{category.title}}</h3>
-            </div>
 
-            <div class="page-header-right">
-                <div class="btn-group">
-                    <button type="button" class="btn drop-btn dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">{{sort}}</button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a href="/products/c/{{category.ref}}?sort=rating">По популярности</a>
-                        <a href="/products/c/{{category.ref}}?sort=priceup">От дешевых к дорогим</a>
-                        <a href="/products/c/{{category.ref}}?sort=pricedown">От дорогих к дешевым </a>
+                <div class="page-header-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn drop-btn dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">{{sort}}</button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="/products/c/{{category.ref}}?sort=rating">По популярности</a>
+                            <a href="/products/c/{{category.ref}}?sort=priceup">От дешевых к дорогим</a>
+                            <a href="/products/c/{{category.ref}}?sort=pricedown">От дорогих к дешевым </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
-        <div class="top-products row row-cols-1 row-cols-md-2 row-cols-lg-4 products-container">
-            {{#if products}}
-                {{#each products}}
-                    <div class="product-tile">
-                        <a href="/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}">
-                            <img src="/images/products/{{this.uri}}/{{this.cover_img}}" class="product-img"
-                                alt="{{this.title}}">
-                            <div class="product-title">{{this.title}}</div>
-                        </a>
-                        <div class="price">
-                            <div class="prev-price {{#if this.old_price}}{{else}}hidden{{/if}}">{{this.old_price}}</div>
-                            <div class="current-price">{{this.price}}</div>
-                        </div>
-                        <div class="product-status">
-                            {{#if this.stock}}
-                                <span>Есть в наличии</span>
-                            {{else}}
-                                <span class="red">Нет в наличии</span>
-                            {{/if}}
-                        </div>
-                        {{!-- <button type="button" class="add-to-cart-s" data-id="{{this.id}}"
+            </div>
+            <div class="top-products row row-cols-1 row-cols-md-2 row-cols-lg-4 products-container">
+                {{#if products}}
+                    {{#each products}}
+                        <div class="product-tile">
+                            <a href="/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}">
+                                <img src="/images/products/{{this.uri}}/{{this.cover_img}}" class="product-img"
+                                    alt="{{this.title}}">
+                                <div class="product-title">{{this.title}}</div>
+                            </a>
+                            <div class="price">
+                                <div class="prev-price {{#if this.old_price}}{{else}}hidden{{/if}}">{{this.old_price}}
+                                </div>
+                                <div class="current-price">{{this.price}}</div>
+                            </div>
+                            <div class="product-status">
+                                {{#if this.stock}}
+                                    <span>Есть в наличии</span>
+                                {{else}}
+                                    <span class="red">Нет в наличии</span>
+                                {{/if}}
+                            </div>
+                            {{!-- <button type="button" class="add-to-cart-s" data-id="{{this.id}}"
                         {{#if this.stock}}{{else}}disabled{{/if}}>
                         <i class="far fa-shopping-cart"></i>
                     </button> --}}
-                    </div>
-                {{/each}}
-            {{else}}
-                <p>Нет товаров</p>
-            {{/if}}
-        </div>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <p>Нет товаров</p>
+                {{/if}}
+            </div>
+    </div>
     </section>
 </main>
 

@@ -1,141 +1,144 @@
 {{> header }}
 <main>
 
+    <div class="wrapper">
+        <section class="content">
+            <!--Breadcrumps-->
+            <div class="breadcrumps">
+                <ul class="d-flex align-items-center">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/products/c/{{category.ref}}">{{category.title}}</a></li>
+                </ul>
+            </div>
+            <!--Breadcrumps-->
+            <div class="container">
+                <div class="row">
 
-    <section class="content">
-        <!--Breadcrumps-->
-        <div class="breadcrumps">
-            <ul class="d-flex align-items-center">
-                <li><a href="/">Главная</a></li>
-                <li><a href="/products/c/{{category.ref}}">{{category.title}}</a></li>
-            </ul>
-        </div>
-        <!--Breadcrumps-->
-        <div class="container">
-            <div class="row">
+                    <!--Left Column-->
+                    <div class="col product-images">
 
-                <!--Left Column-->
-                <div class="col product-images">
+                        <div class="big-img">
+                            <img src="/images/products/{{product.uri}}/{{product.cover_img}}" alt="{{product.title}}">
+                        </div>
 
-                    <div class="big-img">
-                        <img src="/images/products/{{product.uri}}/{{product.cover_img}}" alt="{{product.title}}">
+                        <div class="thumbs-img d-flex">
+
+                            {{#each thumbs}}
+                                <img src="/images/products/{{../product.uri}}/{{this}}" alt="{{../product.title}}"
+                                    {{#if @first}}class="thumb-active" {{/if}}>
+                            {{/each}}
+
+                        </div>
                     </div>
+                    <!--Left Column-->
 
-                    <div class="thumbs-img d-flex">
+                    <!--Right Column-->
+                    <div class="col">
 
-                        {{#each thumbs}}
-                            <img src="/images/products/{{../product.uri}}/{{this}}" alt="{{../product.title}}"
-                                {{#if @first}}class="thumb-active" {{/if}}>
-                        {{/each}}
+                        <div class="item-code">Код товара: <span>{{product.id}}</span></div>
 
-                    </div>
-                </div>
-                <!--Left Column-->
+                        <h1>{{product.title}}</h1>
 
-                <!--Right Column-->
-                <div class="col">
-
-                    <div class="item-code">Код товара: <span>{{product.id}}</span></div>
-
-                    <h1>{{product.title}}</h1>
-
-                    <div class="product-options">
-                        {{#if colors}}
-                            <div class="color-options d-flex" data-current-color="{{product.color}}">
-                                {{#each colors}}
-                                    <a href="/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}"
-                                        style="background-color:#{{this.color_hex}};" data-color-id="{{this.color_id}}"
-                                        data-toggle="tooltip" data-placement="top" title="{{this.color_name}}"></a>
-                                {{/each}}
-                            </div>
-                        {{else}}
-                        {{/if}}
-                    </div>
-
-                    <div class="product-description">
-                        <h4 class="text-grey">Описание товара</h4>
-                        <p>{{product.description}}</p>
-                    </div>
-
-                    <div class="product-dimensions d-flex">
-
-                        <div class="dimension-item">
-                            <div class="dimension-label">Размер Ш х Г х В</div>
-                            <div class="btn-group">
-                                <button type="button" class="btn drop-btn dropdown-toggle dim-btn"
-                                    data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">{{product.size_name}} мм</button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    {{#each sizes}}
+                        <div class="product-options">
+                            {{#if colors}}
+                                <div class="color-options d-flex" data-current-color="{{product.color}}">
+                                    {{#each colors}}
                                         <a href="/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}"
-                                            data-size-id="{{this.size_id}}">{{this.size_name}}</a>
+                                            style="background-color:#{{this.color_hex}};"
+                                            data-color-id="{{this.color_id}}" data-toggle="tooltip" data-placement="top"
+                                            title="{{this.color_name}}"></a>
                                     {{/each}}
                                 </div>
+                            {{else}}
+                            {{/if}}
+                        </div>
+
+                        <div class="product-description">
+                            <h4 class="text-grey">Описание товара</h4>
+                            <p>{{product.description}}</p>
+                        </div>
+
+                        <div class="product-dimensions d-flex">
+
+                            <div class="dimension-item">
+                                <div class="dimension-label">Размер Ш х Г х В</div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn drop-btn dropdown-toggle dim-btn"
+                                        data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">{{product.size_name}} мм</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        {{#each sizes}}
+                                            <a href="/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}"
+                                                data-size-id="{{this.size_id}}">{{this.size_name}}</a>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="text" name="dim_h" hidden id="productHeight" value="">
+
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <div class="product-price">
+                                <div class="price">
+                                    <div class="prev-price {{#if product.old_price}}{{else}}hidden{{/if}}">
+                                        {{product.old_price}}
+                                    </div>
+                                    <div class="current-price text-middle">{{product.price}}</div>
+                                </div>
+                                <div class="product-status">
+                                    {{#if product.stock}}
+                                        <span>Есть в наличии</span>
+                                    {{else}}
+                                        <span class="red">Нет в наличии</span>
+                                    {{/if}}
+                                </div>
+                            </div>
+                            <div class="product-button">
+                                <button class="add-to-cart primary-btn reset-btn" data-id="{{product.id}}"
+                                    data-color="{{selectedColor.color_id}}" data-size="{{selectedSize.size_id}}"><i
+                                        class="fal fa-shopping-cart"></i> Купить</button>
                             </div>
                         </div>
 
-                        <input type="text" name="dim_h" hidden id="productHeight" value="">
 
                     </div>
+                    <!--Right Column-->
 
-                    <div class="d-flex align-items-center">
-                        <div class="product-price">
+                </div>
+            </div>
+        </section>
+        {{#if relatedProducts}}
+            <section class="content">
+                <h3 class="section-title">Похожие товары</h3>
+                <div class="top-products row row-cols-1 row-cols-md-2 row-cols-lg-4 products-container">
+                    {{#each relatedProducts}}
+                        <div class="product-tile">
+                            <a href="/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}">
+                                <img src="/images/products/{{this.uri}}/{{this.cover_img}}" class="product-img"
+                                    alt="{{this.title}}">
+                                <div class="product-title">{{this.title}}</div>
+                            </a>
                             <div class="price">
-                                <div class="prev-price {{#if product.old_price}}{{else}}hidden{{/if}}">
-                                    {{product.old_price}}
+                                <div class="prev-price {{#if this.old_price}}{{else}}hidden{{/if}}">{{this.old_price}}
                                 </div>
-                                <div class="current-price text-middle">{{product.price}}</div>
+                                <div class="current-price">{{this.price}}</div>
                             </div>
                             <div class="product-status">
-                                {{#if product.stock}}
+                                {{#if this.stock}}
                                     <span>Есть в наличии</span>
                                 {{else}}
                                     <span class="red">Нет в наличии</span>
                                 {{/if}}
                             </div>
                         </div>
-                        <div class="product-button">
-                            <button class="add-to-cart primary-btn reset-btn" data-id="{{product.id}}"
-                                data-color="{{selectedColor.color_id}}" data-size="{{selectedSize.size_id}}"><i
-                                    class="fal fa-shopping-cart"></i> Купить</button>
-                        </div>
-                    </div>
-
-
+                    {{/each}}
                 </div>
-                <!--Right Column-->
-
-            </div>
-        </div>
-    </section>
-    {{#if relatedProducts}}
-        <section class="content">
-            <h3 class="section-title">Похожие товары</h3>
-            <div class="top-products row row-cols-1 row-cols-md-2 row-cols-lg-4 products-container">
-                {{#each relatedProducts}}
-                    <div class="product-tile">
-                        <a href="/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}">
-                            <img src="/images/products/{{this.uri}}/{{this.cover_img}}" class="product-img"
-                                alt="{{this.title}}">
-                            <div class="product-title">{{this.title}}</div>
-                        </a>
-                        <div class="price">
-                            <div class="prev-price {{#if this.old_price}}{{else}}hidden{{/if}}">{{this.old_price}}</div>
-                            <div class="current-price">{{this.price}}</div>
-                        </div>
-                        <div class="product-status">
-                            {{#if this.stock}}
-                                <span>Есть в наличии</span>
-                            {{else}}
-                                <span class="red">Нет в наличии</span>
-                            {{/if}}
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </section>
-    {{else}}
-    {{/if}}
+            </section>
+        {{else}}
+        {{/if}}
+    </div>
 </main>
 <script src="/js/product.js"></script>
 

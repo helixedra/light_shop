@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const getData = require('../modules/get_data')
+const getRawData = require('../modules/get_raw_data')
+const categories = require('../modules/categories')
 
 
 // SUPPORT FUNCTIONS
@@ -31,7 +33,7 @@ function convertData(data) {
 // CATEGORY
 router.get('/c/:ref', async function (req, res) {
 
-    let getAllCategories = await getData('SELECT * FROM categories', false)
+    let getAllCategories = await categories()
 
     let categoryData = getAllCategories.filter(category => category.ref === req.params.ref)
     categoryData = { ...categoryData[0] }
@@ -42,13 +44,8 @@ router.get('/c/:ref', async function (req, res) {
 
             req.query.sort = 'rating'
 
-            let productsData = await getData('SELECT * FROM products WHERE category = ? AND primary_item = 1 ORDER BY ?? ASC', [categoryData.id, req.query.sort])
-
-            if (productsData === null) {
-                productsData = false
-            } else {
-                productsData = { productsData }
-            }
+            let productsData = await getRawData('SELECT * FROM products WHERE category = ? AND primary_item = 1 ORDER BY ?? ASC', [categoryData.id, req.query.sort])
+            productsData = (productsData === null) ? false : productsData
 
             res.render('category', {
                 title: categoryData.title,
@@ -62,13 +59,8 @@ router.get('/c/:ref', async function (req, res) {
 
         } else if (req.query.sort === 'priceup') {
 
-            let productsData = await getData('SELECT * FROM products WHERE category = ? AND primary_item = 1 ORDER BY price ASC', categoryData.id)
-
-            if (productsData === null) {
-                productsData = false
-            } else {
-                productsData = { productsData }
-            }
+            let productsData = await getRawData('SELECT * FROM products WHERE category = ? AND primary_item = 1 ORDER BY price ASC', categoryData.id)
+            productsData = (productsData === null) ? false : productsData
 
             res.render('category', {
                 title: categoryData.title,
@@ -82,13 +74,8 @@ router.get('/c/:ref', async function (req, res) {
 
         } else if (req.query.sort === 'pricedown') {
 
-            let productsData = await getData('SELECT * FROM products WHERE category = ? AND primary_item = 1  ORDER BY price DESC', categoryData.id)
-
-            if (productsData === null) {
-                productsData = false
-            } else {
-                productsData = { productsData }
-            }
+            let productsData = await getRawData('SELECT * FROM products WHERE category = ? AND primary_item = 1  ORDER BY price DESC', categoryData.id)
+            productsData = (productsData === null) ? false : productsData
 
             res.render('category', {
                 title: categoryData.title,

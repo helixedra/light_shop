@@ -2,10 +2,12 @@ const express = require('express')
 const router = express.Router()
 const getData = require('../modules/get_data')
 const seo = require('../seo')
+const categories = require('../modules/categories')
 
 router.get('/', async function (req, res) {
     res.render('home', {
         title: seo.home.title,
+        categories: await categories(),
         description: seo.home.description,
         products: await getData('SELECT * FROM products WHERE top = 1 AND primary_item = 1 ORDER BY id DESC', false),
         messages: {

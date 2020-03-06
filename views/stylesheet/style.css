@@ -15,8 +15,14 @@ header {
     width: 100%;
 }
 
+.wrapper {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
 .logo {
-    margin: 32px;
+    /* margin: 32px; */
     display: block;
     width: 120px;
     height: 32px;
@@ -26,7 +32,7 @@ header {
 }
 
 .top-buttons-container {
-    padding: 32px;
+    /* padding: 32px; */
 }
 
 .top-button {
@@ -106,7 +112,7 @@ header {
 }
 
 .content {
-    padding: 0 32px;
+    /* padding: 0 32px; */
 }
 
 .modal-open {
@@ -469,10 +475,11 @@ h4 {
         width: 100vw !important;
     }
     #carouselFade > div > div.carousel-item > img {
-        object-position: 50% 50%;
+        object-position: 0 0 !important;
         width: auto !important;
         height: 400px;
     }
+
     .hero > div > div {
         height: 400px;
         width: 100vw;
@@ -511,10 +518,38 @@ h4 {
         margin: 0 5% !important;
     }
 }
+    .hero > div > div {
+        max-height: 70vh;
+    }
 
+nav {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #333333;
+    /* width: 100%; */
+    margin-left: 48px;
+}
 
-
-
+nav > a {
+    color: #222222;
+}
+.catalog-button {
+    cursor: pointer;
+}
+.catalog-button:hover {
+    opacity: .8;
+}
+#catalog-menu > li {
+    margin: 8px 0;
+    padding: 4px;
+}
+#catalog-menu > li > a {
+    color: #222222;
+    white-space: nowrap;
+}
+#catalog-menu-container {
+    position: relative;
+}
 
 
 /* |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
@@ -552,12 +587,7 @@ h4 {
     margin-bottom: 24px;
 }
 
-nav {
-    font-weight: 500;
-    font-size: 1.1rem;
-    color: #333333;
-    width: 100%;
-}
+
 
 .sub-nav > a {
     white-space: nowrap;
@@ -852,6 +882,8 @@ footer {
     margin-top: 6rem;
     padding-top: 48px;
 }
+
+
 
 .footer-top {
     padding-bottom: 48px;
