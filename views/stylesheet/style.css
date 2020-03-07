@@ -186,6 +186,9 @@ input::placeholder {
 input:focus {
     outline: none;
 }
+.item-info {
+    width: 400px;
+}
 .item-qty > input {
     width: 40px;
     text-align: center;
@@ -258,25 +261,27 @@ i {
 }
 .checkout-success-number > span {
     font-weight: 600;
-    padding: 16px 32px;
+    /* padding: 16px 32px; */
     height: 78px;
-    background: #F2F2F2;
-    border-radius: 60px;
+    /* background: #F2F2F2; */
+    /* border-radius: 60px; */
     font-size: 38px;
     line-height: 46px;
     text-align: center;
     color: #828282;
-    display: table;
+    display: block;
     margin-top: 8px;
 }
 .checkout-success-container {
     padding: 48px;
     max-width: 640px;
-    height: 564px;
+    /* height: 564px; */
     margin: 0 auto;
-    border: 1px solid #E0E0E0;
+    border: 1px solid #e8e8e8;
     position: relative;
+    border-radius: 6px;
     text-align: center;
+    box-shadow: 3px 5px 12px #efefef;
 }
 .success-icon {
     font-weight: normal;
@@ -527,6 +532,9 @@ nav {
     font-size: 1.1rem;
     color: #333333;
     /* width: 100%; */
+    
+}
+.top-nav {
     margin-left: 48px;
 }
 
@@ -1167,8 +1175,14 @@ input[type=number] {
     min-width: 96px;
     text-align: right;
     margin-right: 32px;
+    display: none;
 }
 
+.item-qty {
+    width: 140px;
+    text-align: center;
+    margin-left: auto;
+}
 .item-qty > button {
     background: none;
     border: none;
@@ -1187,9 +1201,10 @@ input[type=number] {
     color: #333333;
     font-weight: 600;
     font-size: 1.125rem;
-    min-width: 96px;
+    width: 140px;
     text-align: right;
     margin-right: 32px;
+    /* margin-left: auto; */
 }
 .item-delete {
     background-color: #f2f2f2;
@@ -1682,8 +1697,8 @@ a:hover {
     margin-top: 2rem;
 }
 .checkout {
-    /* padding: 2rem 0; */
-    max-width: 1280px;
+    padding: 2rem 2rem;
+    /* max-width: 1280px; */
 }
 .checkout-title {
     padding: 2rem 0;

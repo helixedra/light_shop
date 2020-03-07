@@ -1,103 +1,106 @@
 {{> header }}
 <main>
-    <section class="content">
-        {{!-- <form action="/user/logout?_method=DELETE" method="POST">
+    <div class="wrapper">
+        <section class="content">
+            {{!-- <form action="/user/logout?_method=DELETE" method="POST">
         <button type="submit">LOGOUT</button>
     </form> --}}
-        <nav class="d-flex">
-            <a href="/user/profile" class="nav-link">Профиль</a>
-            <a href="/user/orders" class="nav-link active">Мои заказы</a>
-        </nav>
-    </section>
-    <section class="content orders">
-        {{#if orders}}
-            <div class="orders-wrapper" style="max-width: 960px;">
-                {{#each orders}}
+            <nav class="d-flex">
+                <a href="/user/profile" class="nav-link">Профиль</a>
+                <a href="/user/orders" class="nav-link active">Мои заказы</a>
+            </nav>
+        </section>
+        <section class="content orders">
+            {{#if orders}}
+                <div class="orders-wrapper" style="max-width: 960px;">
+                    {{#each orders}}
 
-                    <div class="orders-item-container">
-                        <div class="orders-item-top d-flex justify-content-between" data-toggle="collapse"
-                            data-target="#item{{this.id}}" aria-expanded="false" aria-controls="item{{this.id}}">
-                            <div class="orders-title"><i class="far fa-cart-arrow-down orders-icon"></i> Заказ
-                                №{{this.id}}
+                        <div class="orders-item-container">
+                            <div class="orders-item-top d-flex justify-content-between" data-toggle="collapse"
+                                data-target="#item{{this.id}}" aria-expanded="false" aria-controls="item{{this.id}}">
+                                <div class="orders-title"><i class="far fa-cart-arrow-down orders-icon"></i> Заказ
+                                    №{{this.id}}
+                                </div>
+                                <div class="orders-status-{{this.order_status}}"></div>
                             </div>
-                            <div class="orders-status-{{this.order_status}}"></div>
-                        </div>
 
 
 
-                        <div class="orders-item-list collapse multi-collapse row" id="item{{this.id}}">
+                            <div class="orders-item-list collapse multi-collapse row" id="item{{this.id}}">
 
-                            <div class="col-7">
-                                {{#each this.order_items}}
-                                    <div class="orders-list-item row align-items-center">
-                                        <div class="orders-list-item-img col-2"><img
-                                                src="/images/products/{{this.uri}}/{{this.cover_img}}"
-                                                alt="{{this.title}}" height="64px"></div>
-                                        <div class="orders-list-item-title col-6">
-                                            <div><a href="/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}"
-                                                    target="_blank">{{this.title}}</a>
+                                <div class="col-7">
+                                    {{#each this.order_items}}
+                                        <div class="orders-list-item row align-items-center">
+                                            <div class="orders-list-item-img col-2"><img
+                                                    src="/images/products/{{this.uri}}/{{this.cover_img}}"
+                                                    alt="{{this.title}}" height="64px"></div>
+                                            <div class="orders-list-item-title col-6">
+                                                <div><a href="/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}"
+                                                        target="_blank">{{this.title}}</a>
+                                                </div>
+                                                <div class="item-code">Код товара: {{this.id}}</div>
                                             </div>
-                                            <div class="item-code">Код товара: {{this.id}}</div>
+                                            <div class="orders-list-item-qty col-1">{{this.qty}}</div>
+                                            <div class="orders-list-item-price price col-3"
+                                                style="margin-top: 0 !important;">
+                                                <div>{{this.price}}</div>
+                                            </div>
                                         </div>
-                                        <div class="orders-list-item-qty col-1">{{this.qty}}</div>
-                                        <div class="orders-list-item-price price col-3"
+                                    {{/each}}
+
+                                    <div class="orders-list-item row align-items-center">
+                                        <div class="col-2"></div>
+                                        <div class="orders-list-item-title col-7">
+                                            {{#if this.delivery_address}}
+                                                {{this.delivery_option}}
+                                            {{/if}}
+                                        </div>
+
+                                        <div class="orders-list-item-price col-3 price"
                                             style="margin-top: 0 !important;">
-                                            <div>{{this.price}}</div>
+                                            <div>{{this.delivery_price}}</div>
                                         </div>
                                     </div>
-                                {{/each}}
 
-                                <div class="orders-list-item row align-items-center">
-                                    <div class="col-2"></div>
-                                    <div class="orders-list-item-title col-7">
-                                        {{#if this.delivery_address}}
-                                            {{this.delivery_option}}
-                                        {{/if}}
-                                    </div>
-
-                                    <div class="orders-list-item-price col-3 price" style="margin-top: 0 !important;">
-                                        <div>{{this.delivery_price}}</div>
+                                    <div class="orders-list-item orders-total-b row align-items-center">
+                                        <div class="orders-list-item-total-desc"></div>
+                                        <div class="orders-list-item-total col-12 d-flex justify-content-end price"
+                                            style="margin-top: 0 !important;"><span
+                                                class="text-grey m-right-0-5">Итого</span>
+                                            <div>{{this.total}}</div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="orders-list-item orders-total-b row align-items-center">
-                                    <div class="orders-list-item-total-desc"></div>
-                                    <div class="orders-list-item-total col-12 d-flex justify-content-end price"
-                                        style="margin-top: 0 !important;"><span
-                                            class="text-grey m-right-0-5">Итого</span>
-                                        <div>{{this.total}}</div>
+
+
+                                <div class="orders-details col-5">
+                                    <div class="orders-details-delivery">
+                                        <i class="far fa-truck m-right-0-5"></i>{{this.delivery_option}}
+                                        {{#if this.np_address}}<span
+                                                class="address-highlight">{{this.np_address}}</span>
+                                        {{else}}{{/if}}
+                                        {{#if this.delivery_address}}<span
+                                                class="address-highlight">{{this.delivery_address}}</span>
+                                        {{else}}{{/if}}
+                                    </div>
+                                    <div class="orders-details-payment"><i class="far fa-wallet m-right-0-5"></i>
+                                        {{this.payment_option}}
                                     </div>
                                 </div>
+
                             </div>
-
-
-
-                            <div class="orders-details col-5">
-                                <div class="orders-details-delivery">
-                                    <i class="far fa-truck m-right-0-5"></i>{{this.delivery_option}}
-                                    {{#if this.np_address}}<span class="address-highlight">{{this.np_address}}</span>
-                                    {{else}}{{/if}}
-                                    {{#if this.delivery_address}}<span
-                                            class="address-highlight">{{this.delivery_address}}</span>
-                                    {{else}}{{/if}}
-                                </div>
-                                <div class="orders-details-payment"><i class="far fa-wallet m-right-0-5"></i>
-                                    {{this.payment_option}}
-                                </div>
-                            </div>
-
                         </div>
-                    </div>
-                {{/each}}
-            </div>
+                    {{/each}}
+                </div>
 
-        {{else}}
-            <div>У вас нет никаких заказов</div>
-        {{/if}}
+            {{else}}
+                <div>У вас нет никаких заказов</div>
+            {{/if}}
 
-    </section>
+        </section>
 
-    {{!-- <td>{{this.id}}</td>
+        {{!-- <td>{{this.id}}</td>
                         <td>{{this.delivery_option}}</td>
                         <td>{{this.payment_option}}</td>
                         <td>{{this.delivery_address}}</td>
@@ -107,7 +110,7 @@
                         <td>{{this.datetime}}</td> --}}
 
 
-    {{!-- </tr>
+        {{!-- </tr>
                     {{#each this.order_items}}
                         <tr class="collapse multi-collapse" id="item{{this.id}}">
 
@@ -124,7 +127,7 @@
                     {{/each}}
 
         </table> --}}
-
+    </div>
 </main>
 
 

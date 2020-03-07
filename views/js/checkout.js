@@ -349,3 +349,90 @@ function createOrder() {
     })
     return order
 }
+$(document).ready(function () {
+    $('form[name="checkoutForm"]').submit(function (e) {
+        e.preventDefault();
+
+        // validation
+        let vEmail = validateEmail('checkout', $('#checkoutEmail').val()),
+            vName = validateName('checkout', $('#checkoutName').val()),
+            vPhone = validatePhone('checkout', $('#checkoutPhone').val())
+
+        if (vEmail && vName && vPhone) {
+            this.submit()
+        }
+    })
+})
+
+// Validate email
+function validateEmail(inputPrefix, email = null) {
+    if (email !== null) {
+        if (email !== '') {
+            if (email.length < 4 || !/(.+)@(.+){2,}\.(.+){2,}/.test(email) || email.length > 50) {
+                showError(inputPrefix + 'Email', 'Введите корректный e-mail')
+                return false
+            } else {
+                hideError(inputPrefix + 'Email')
+            }
+        } else {
+            showError(inputPrefix + 'Email', 'Введите ваше e-mail')
+            return false
+        }
+    } else {
+        return false
+    }
+    return true
+}
+
+// Validation phone
+function validatePhone(inputPrefix, phone = null) {
+    if (phone !== null) {
+        if (phone !== '') {
+            if (phone.length < 9 || phone.length > 20 || !/^[\d+()+\s+-]+$/g.test(phone)) {
+                showError(inputPrefix + 'Phone', 'Введите корректный номер')
+                return false
+            } else {
+                hideError(inputPrefix + 'Phone')
+            }
+        } else {
+            showError(inputPrefix + 'Phone', 'Введите ваш номер телефона')
+            return false
+        }
+    } else {
+        return false
+    }
+    return true
+}
+
+// Validation name
+function validateName(inputPrefix, name = null) {
+    if (name !== null) {
+        if (name !== '') {
+            if (name.length < 2 || /\d+/.test(name)) {
+                showError(inputPrefix + 'Name', 'Введите корректное имя')
+                return false
+            } else {
+                hideError(inputPrefix + 'Name')
+            }
+        } else {
+            showError(inputPrefix + 'Name', 'Введите ваше имя')
+            return false
+        }
+    } else {
+        return false
+    }
+    return true
+}
+
+function showError(input, error) {
+    if ($('#' + input + 'Error').length === 0) {
+        $('#' + input).addClass('input-error').after("<div class='error-msg' id='" + input + "Error'>" + error + "</div>")
+    } else {
+        $('#' + input + 'Error').html(error)
+    }
+}
+
+function hideError(input) {
+    $('#' + input + 'Error').remove()
+    $('#' + input).removeClass('input-error')
+}

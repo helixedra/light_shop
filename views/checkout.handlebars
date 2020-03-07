@@ -39,18 +39,18 @@
                                     <div class="col">
                                         <div class="input-group">
                                             <label for="name">Имя</label>
-                                            <input type="text" name="name" placeholder="Имя" id="nameField"
+                                            <input type="text" name="name" placeholder="Имя" id="checkoutName"
                                                 value="{{#if user.name}}{{user.name}}{{/if}}">
                                         </div>
                                         <div class="input-group">
                                             <label for="phone">Номер телефона</label>
-                                            <input type="text" name="phone" placeholder="Номер телефона" id="phoneField"
-                                                value="{{#if user.phone}}{{user.phone}}{{/if}}">
+                                            <input type="text" name="phone" placeholder="Номер телефона"
+                                                id="checkoutPhone" value="{{#if user.phone}}{{user.phone}}{{/if}}">
                                         </div>
                                         <div class="input-group">
                                             <label for="email">Электронная почта</label>
                                             <input type="text" name="email" placeholder="Электронная почта"
-                                                id="emailField" value="{{#if user.email}}{{user.email}}{{/if}}">
+                                                id="checkoutEmail" value="{{#if user.email}}{{user.email}}{{/if}}">
                                         </div>
                                     </div>
                                     <div class="col d-flex text-center sub-login-box">
@@ -169,6 +169,7 @@
                                     <input type="hidden" name="order" value="">
                                     <input type="hidden" name="delivery_price" value="" id="deliveryPrice">
                                     <input type="hidden" name="total" value="">
+                                    <input type="hidden" name="token" value="{{token}}">
                                     <button type="submit" class="primary-btn reset-btn w-100" id="checkoutSubmit"
                                         name="checkoutSubmit">Оформить
                                         заказ</button>

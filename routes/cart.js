@@ -4,6 +4,7 @@ const insertData = require('../modules/insert_data')
 const getData = require('../modules/get_data')
 const getRawData = require('../modules/get_raw_data')
 const mailer = require('../modules/mailer')
+const cToken = require('../modules/ctoken')
 const NodeCache = require("node-cache");
 const myCache = new NodeCache({ stdTTL: 120, checkperiod: 140 });
 
@@ -51,6 +52,7 @@ router.get('/checkout', async function (req, res) {
             res.render('checkout', {
                 title: 'Оформление заказа',
                 cart: '',
+                token: cToken(),
                 user: {
                     id: user.id,
                     name: user.name,
@@ -65,6 +67,7 @@ router.get('/checkout', async function (req, res) {
             res.render('checkout', {
                 title: 'Оформление заказа',
                 cart: '',
+                token: cToken(),
                 user: { id: 0 }
             })
         }
@@ -75,6 +78,7 @@ router.get('/checkout', async function (req, res) {
         res.render('checkout', {
             title: 'Оформление заказа',
             cart: '',
+            token: cToken(),
             user: {
                 id: 0,
                 name: '',
@@ -114,82 +118,95 @@ function combine(pid, item_title, qty, item_price) {
 /* CHECKOUT POST */
 router.post('/checkout', async function (req, res) {
 
-    if (req.body.delivery_opt_id == 1) req.body.delivery_address = req.body.np_address = '';
-    if (req.body.delivery_opt_id == 3) req.body.delivery_address = '';
+    //Check token
+    let checkToken = await getData('SELECT token FROM orders WHERE token = ?', req.body.token)
 
-    if (Array.isArray(req.body.delivery_address)) req.body.delivery_address = req.body.delivery_address.join('')
+    // if token exist redirect to home
+    if (checkToken !== null) {
+        res.redirect('/')
+    } else {
+
+        if (req.body.delivery_opt_id == 1) req.body.delivery_address = req.body.np_address = '';
+        if (req.body.delivery_opt_id == 3) req.body.delivery_address = '';
+
+        if (Array.isArray(req.body.delivery_address)) req.body.delivery_address = req.body.delivery_address.join('')
 
 
-    /*
-    --------------------
+        /*
+        --------------------
+        
+        Checkout Validation 
     
-    Checkout Validation 
+        --------------------
+        */
 
-    --------------------
-    */
+        //If data passed then insert to DB
+        if (req.body.phone !== '' && req.body.email !== '' && req.body.order !== '') {
 
-    //If data passed then insert to DB
-    if (req.body.phone !== '' && req.body.email !== '' && req.body.order !== '') {
+            let newOrder = await insertData('INSERT INTO orders (id, client_name, client_phone, client_email, client_id, delivery_option, payment_option, delivery_address, delivery_price, np_address, order_items, total, order_status, token) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.body.name, req.body.phone, req.body.email, req.body.client_id, req.body.delivery_option, req.body.payment_option, req.body.delivery_address, req.body.delivery_price, req.body.np_address, req.body.order, req.body.total, "new", req.body.token])
 
-        let newOrder = await insertData('INSERT INTO orders (id, client_name, client_phone, client_email, client_id, delivery_option, payment_option, delivery_address, delivery_price, np_address, order_items, total, order_status) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.body.name, req.body.phone, req.body.email, req.body.client_id, req.body.delivery_option, req.body.payment_option, req.body.delivery_address, req.body.delivery_price, req.body.np_address, req.body.order, req.body.total, "new"])
+            let productsDetails = await getRawData('SELECT id, ref, uri, title, cover_img, color, size, price FROM products WHERE id IN (' + req.body.pid.toString() + ')', false)
 
-        let productsDetails = await getRawData('SELECT id, ref, uri, title, cover_img, color, size, price FROM products WHERE id IN (' + req.body.pid.toString() + ')', false)
+            let orderDetails = productsDetails.map((item, index) => {
+                item.qty = req.body.qty[index]
+                item.total = req.body.qty[index] * item.price
+                return item
+            })
 
-        let orderDetails = productsDetails.map((item, index) => {
-            item.qty = req.body.qty[index]
-            item.total = req.body.qty[index] * item.price
-            return item
-        })
+            let orderItems = combine(req.body.pid, req.body.item_title, req.body.qty, req.body.item_price)
 
-        let orderItems = combine(req.body.pid, req.body.item_title, req.body.qty, req.body.item_price)
-
-        if (newOrder) {
-            //If data has been add to DB then send mail with options
-            let customerMail = {
-                from: '"Lansot" <sales@lansot.com>',
-                to: req.body.email,
-                subject: 'Ваш заказ №' + newOrder.insertId + ' принят',
-                template: 'checkout_client_email',
-                context: {
-                    site_url: req.headers.origin,
-                    client_name: req.body.name,
-                    order_id: newOrder.insertId,
-                    delivery_option: req.body.delivery_option,
-                    payment_option: req.body.payment_option,
-                    delivery_address: req.body.delivery_address,
-                    delivery_price: req.body.delivery_price,
-                    np_address: req.body.np_address,
-                    order_total: req.body.total,
-                    order_details: orderDetails
+            if (newOrder) {
+                //If data has been add to DB then send mail with options
+                let customerMail = {
+                    from: '"Lansot" <sales@lansot.com>',
+                    to: req.body.email,
+                    subject: 'Ваш заказ №' + newOrder.insertId + ' принят',
+                    template: 'checkout_client_email',
+                    context: {
+                        site_url: req.headers.origin,
+                        client_name: req.body.name,
+                        order_id: newOrder.insertId,
+                        delivery_option: req.body.delivery_option,
+                        payment_option: req.body.payment_option,
+                        delivery_address: req.body.delivery_address,
+                        delivery_price: req.body.delivery_price,
+                        np_address: req.body.np_address,
+                        order_total: req.body.total,
+                        order_details: orderDetails
+                    }
                 }
-            }
-            let salesMail = {
-                from: '"Lansot" <sales@lansot.com>',
-                to: 'sales@lansot.com',
-                subject: 'Новый заказ №' + newOrder.insertId + '',
-                template: 'checkout_sales_email',
-                context: {
-                    order_id: newOrder.insertId,
-                    orders: orderItems,
-                    order_total: req.body.total,
-                    delivery: `Способ доставка: ${req.body.delivery_option}; ${req.body.delivery_address} / НП: ${req.body.np_address}`,
-                    payment: req.body.payment_option,
-                    delivery_price: req.body.delivery_price
+                let salesMail = {
+                    from: '"Lansot" <sales@lansot.com>',
+                    to: 'sales@lansot.com',
+                    subject: 'Новый заказ №' + newOrder.insertId + '',
+                    template: 'checkout_sales_email',
+                    context: {
+                        order_id: newOrder.insertId,
+                        orders: orderItems,
+                        order_total: req.body.total,
+                        delivery: `Способ доставка: ${req.body.delivery_option}; ${req.body.delivery_address} / НП: ${req.body.np_address}`,
+                        payment: req.body.payment_option,
+                        delivery_price: req.body.delivery_price
+                    }
                 }
-            }
-            let info = await mailer.sendMail(customerMail)
-            let sales = await mailer.sendMail(salesMail)
-            //If email has been sent then render success template
-            if (info, sales) {
-                //Render success template
-                res.render('checkout_success', {
-                    title: 'Ваш заказ принят',
-                    order_id: newOrder.insertId,
-                    success: true
-                })
+                let info = await mailer.sendMail(customerMail)
+                let sales = await mailer.sendMail(salesMail)
+                //If email has been sent then render success template
+                if (info, sales) {
+                    //Render success template
+                    res.render('checkout_success', {
+                        title: 'Ваш заказ принят',
+                        order_id: newOrder.insertId,
+                        success: true
+                    })
+                }
             }
         }
+
     }
+
+
+
 })
 
 module.exports = router

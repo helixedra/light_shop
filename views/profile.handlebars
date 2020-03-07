@@ -1,86 +1,90 @@
 {{> header }}
 <main>
-    <section class="content">
-        {{!-- <h1>Профиль</h1> --}}
-        {{!-- <form action="/user/logout?_method=DELETE" method="POST">
+    <div class="wrapper">
+        <section class="content">
+            {{!-- <h1>Профиль</h1> --}}
+            {{!-- <form action="/user/logout?_method=DELETE" method="POST">
         <button type="submit">LOGOUT</button>
     </form> --}}
-        <nav class="d-flex">
-            <a href="/user/profile" class="nav-link active">Профиль</a>
-            <a href="/user/orders" class="nav-link">Мои заказы</a>
-        </nav>
+            <nav class="d-flex">
+                <a href="/user/profile" class="nav-link active">Профиль</a>
+                <a href="/user/orders" class="nav-link">Мои заказы</a>
+            </nav>
 
-        <div class="row">
-            <div class="col-5">
-                <form action="" method="post" name="user-info">
-                    <h3 class="form-title">Контактные данные</h3>
-                    <div class="input-group">
-                        <label for="name">Имя</label>
-                        <input type="text" name="name" value="{{user.name}}">
-                    </div>
-                    <div class="input-group">
-                        <label for="phone">Номер телефона</label>
-                        <input type="text" name="phone" value="{{user.phone}}">
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Электронная почта</label>
-                        <input type="text" name="email" value="{{user.email}}" disabled>
-                    </div>
-
-                    <div class="m-top-2">
+            <div class="row">
+                <div class="col-5">
+                    <form action="" method="post" name="user-info">
+                        <h3 class="form-title">Контактные данные</h3>
                         <div class="input-group">
-                            <button type="button" class="reset-btn text-btn" data-toggle="collapse"
-                                href="#passwordCollapse" role="button" aria-expanded="false"
-                                aria-controls="passwordCollapse"><i class="far fa-unlock-alt m-right-0-5"></i>Изменить
-                                пароль
-                            </button>
+                            <label for="name">Имя</label>
+                            <input type="text" name="name" value="{{user.name}}">
                         </div>
-                        <div class="collapse" id="passwordCollapse">
-                            <form action="" method="post" name="user-password">
-                                <div class="input-group">
-                                    <label for="currentpass">Текущий пароль</label>
-                                    <input type="text" name="currentpass" value="" placeholder="Введите текущий пароль">
-                                </div>
-                                <div class="input-group">
-                                    <label for="newpass">Новый пароль</label>
-                                    <input type="text" name="newpass" value="" placeholder="Введите новый пароль">
-                                </div>
-                                <div class="input-group">
-                                    <label for="newpassagain">Новый пароль еще раз</label>
-                                    <input type="text" name="newpassagain" value=""
-                                        placeholder="Повторите новый пароль">
-                                </div>
-                                <div class="input-group">
-                                    <button type="submit" name="user-password"
-                                        class="reset-btn primary-btn">Изменить</button>
-                                </div>
-                            </form>
+                        <div class="input-group">
+                            <label for="phone">Номер телефона</label>
+                            <input type="text" name="phone" value="{{user.phone}}">
                         </div>
-                    </div>
+                        <div class="input-group">
+                            <label for="email">Электронная почта</label>
+                            <input type="text" name="email" value="{{user.email}}" disabled>
+                        </div>
 
-                    <h3 class="form-title">Мои адреса</h3>
-
-                    <div id="address-list">
-                        {{#each user.address}}
+                        <div class="m-top-2">
                             <div class="input-group">
-                                <input type="text" name="address" value="{{this}}">
+                                <button type="button" class="reset-btn text-btn" data-toggle="collapse"
+                                    href="#passwordCollapse" role="button" aria-expanded="false"
+                                    aria-controls="passwordCollapse"><i
+                                        class="far fa-unlock-alt m-right-0-5"></i>Изменить
+                                    пароль
+                                </button>
                             </div>
-                        {{/each}}
+                            <div class="collapse" id="passwordCollapse">
+                                <form action="" method="post" name="user-password">
+                                    <div class="input-group">
+                                        <label for="currentpass">Текущий пароль</label>
+                                        <input type="text" name="currentpass" value=""
+                                            placeholder="Введите текущий пароль">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="newpass">Новый пароль</label>
+                                        <input type="text" name="newpass" value="" placeholder="Введите новый пароль">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="newpassagain">Новый пароль еще раз</label>
+                                        <input type="text" name="newpassagain" value=""
+                                            placeholder="Повторите новый пароль">
+                                    </div>
+                                    <div class="input-group">
+                                        <button type="submit" name="user-password"
+                                            class="reset-btn primary-btn">Изменить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
-                    </div>
-                    <div class="m-bot-2">
-                        <button type="button" class="reset-btn text-btn" id="add-address"><i
-                                class="fal fa-plus-circle m-right-0-5"></i>Добавить адрес</button>
-                    </div>
-                    <button type="submit" class="reset-btn primary-btn" name="user-info">Сохранить</button>
-                </form>
+                        <h3 class="form-title">Мои адреса</h3>
+
+                        <div id="address-list">
+                            {{#each user.address}}
+                                <div class="input-group">
+                                    <input type="text" name="address" value="{{this}}">
+                                </div>
+                            {{/each}}
+
+                        </div>
+                        <div class="m-bot-2">
+                            <button type="button" class="reset-btn text-btn" id="add-address"><i
+                                    class="fal fa-plus-circle m-right-0-5"></i>Добавить адрес</button>
+                        </div>
+                        <button type="submit" class="reset-btn primary-btn" name="user-info">Сохранить</button>
+                    </form>
 
 
 
+                </div>
             </div>
-        </div>
 
-    </section>
+        </section>
+    </div>
 </main>
 <script>
     $('#add-address').click(function () {
