@@ -139,45 +139,57 @@ router.post('/registration', [check('email').isEmail()], async (req, res) => {
         return res.sendStatus(422).json({ errors: errors.array() }) // change
     }
 
-    try {
-        // Create activation key
-        const key = confimationToken()
 
-        // Save confirmation data to DB
-        const insertTempUser = await insertData("INSERT INTO temp_users (email, a_key) VALUES (?, ?)", [email, key])
+    // Create activation key
+    let key = confimationToken()
 
-        // Create password hash
-        const hashPass = await bcrypt.hash(password, 10)
+    // Save confirmation data to DB
+    let insertTempUser = await insertData("INSERT INTO temp_users (email, a_key) VALUES (?, ?)", [email, key])
 
-        const insertUser = await insertData("INSERT INTO customers (name, email, phone, password, status) VALUES (?, ?, ?, ?, 'inactive')", [req.body.name, req.body.email, req.body.phone, hashPass])
+    // Create password hash
+    let hashPass = await bcrypt.hash(password, 10)
 
-        // Create confirmation link
-        const confirmationLink = `${host}/user/confirmation?email=${email}&key=${key}`
+    let insertUser = await insertData("INSERT INTO customers (name, email, phone, password, status) VALUES (?, ?, ?, ?, 'inactive')", [req.body.name, req.body.email, req.body.phone, hashPass])
 
-        const mail = {
+    // Create confirmation link
+    let confirmationLink = `${host}/user/confirmation?email=${email}&key=${key}`
+
+    if (insertUser) {
+        let mailReg = {
             from: '"Lansot" <sales@lansot.com>',
-            to: req.body.email,
+            to: email,
             subject: 'Подтверждение регистрации Lansot',
             template: 'registration_confirmation_email',
             context: {
+                site_url: req.headers.origin,
                 client_name: name,
                 client_email: email,
                 client_link: confirmationLink
             }
         }
 
-        let info = await mailer.sendMail(mail)
+        let sendMail = await mailer.sendMail(mailReg)
 
-
-        if (insertUser) {
+        if (insertUser && sendMail) {
 
             //If email has been sent then render success template
             // res.send('User added')
             // return done(null, false, { message: 'User have been added seccessfully'})
-            res.redirect('/user/login?msg=success')
+            // res.redirect('/user/login?msg=success')
+            req.flash('message', {
+                status: 'success',
+                message: 'Вы успешно зарегистрированы! На вашу электронную почту мы отправили письмо. Пожалуйста пройдите по ссылке в письме.'
+            })
+            // res.redirect('/')
+            res.redirect('/user/registration');
         } else {
+            req.flash('message', {
+                status: 'error',
+                message: 'Something went wrong. Please try again'
+            })
+            res.redirect('/user/registration');
             // return done(null, false, { message: 'Something went wrong. Please try again'})
-            res.redirect('/user/login?msg=error')
+            // res.redirect('/user/login?msg=error')
             // res.send('Something went wrong')
         }
         // res.send(`register...<br>${req.body.name}<br>${req.body.email}<br>${req.body.password}<br>PASSHASH: ${hashPass}`)
@@ -185,13 +197,9 @@ router.post('/registration', [check('email').isEmail()], async (req, res) => {
 
         // res.redirect('/user/login') // redirect to login when success
 
-    } catch (error) {
-
-        res.send(error)
-
-        // doing something when failure
-
     }
+
+
 
 })
 

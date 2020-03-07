@@ -1,13 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .content {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 32px;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            display: table;
+            background-color: #e2e2e2;
+        }
+
+        .wrapper {
+            width: 768px;
+            margin: 0 auto;
+            padding: 16px;
+            background-color: #ffffff;
+            margin-top: 32px;
+            margin-bottom: 48px;
+        }
+
+        .mail-header {
+            background-color: black;
+            padding: 32px;
+        }
+
+        .order-number {
+            font-size: 18px;
+        }
+    </style>
 </head>
+
 <body>
-    <h3>{{client_name}}, спасибо, ваш заказ принят!</h3>
-    <h4 style="background-color: black; color:blanchedalmond;">Номер вашего заказа №{{order_id}}</h4>
-    <p>Мы свяжемся с вами в ближайшее время для подтверждения заказа</p>
+    <div class="content">
+        <div class="wrapper">
+            <div class="mail-header"><img src="{{site_url}}/lansot-logo-small.png" alt=""></div>
+            <h2>{{client_name}}, спасибо, ваш заказ принят!</h2>
+            <p>Мы свяжемся с вами в ближайшее время для подтверждения.</p>
+            <p>Статус заказа вы сможете проверить в личном кабинете.</p>
+            <div class="order-number">Заказ <b>№{{order_id}}</b></div>
+            <table style="margin-top: 32px;">
+                {{#each order_details}}
+                    <tr>
+                        <td width="10%"><img src="{{../site_url}}/images/products/{{this.uri}}/{{this.cover_img}}"
+                                width="100%">
+                        </td>
+                        <td width="60%" style="padding: 0 32px;">
+                            <a
+                                href="{{../site_url}}/products/p/{{this.id}}?ref={{this.ref}}&color={{this.color}}&size={{this.size}}">{{this.title}}</a>
+                        </td>
+                        <td width="10%">{{this.qty}} шт.</td>
+                        <td width="20%" style="text-align: right;">{{this.total}} грн.</td>
+                    </tr>
+                {{/each}}
+                <tr>
+                    <td width="10%"></td>
+                    <td width="60%" style="padding: 0 32px;">
+                        Доставка
+                    </td>
+                    <td width="10%"></td>
+                    <td width="20%" style="text-align: right; padding: 24px 0;">{{delivery_price}} грн.</td>
+                </tr>
+
+            </table>
+            <div width="20%"
+                style="text-align: right; font-weight: bold; border-top: 1px solid #cccccc; padding: 24px 0;">
+                {{order_total}} грн.</div>
+            <p>Способ доставки: <b>{{delivery_option}}</b></p>
+            <p>{{delivery_address}}{{np_address}}</p>
+            <p>Способ оплаты: <b>{{payment_option}}</b></p>
+        </div>
+    </div>
 </body>
+
 </html>

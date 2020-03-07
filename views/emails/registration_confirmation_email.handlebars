@@ -1,14 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .content {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 32px;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            display: table;
+            background-color: #e2e2e2;
+        }
+
+        .wrapper {
+            width: 768px;
+            margin: 0 auto;
+            padding: 16px;
+            background-color: #ffffff;
+            margin-top: 32px;
+            margin-bottom: 48px;
+        }
+
+        .mail-header {
+            background-color: black;
+            padding: 32px;
+        }
+
+        .order-number {
+            font-size: 18px;
+        }
+    </style>
 </head>
+
 <body>
-    <h3>{{client_name}}, вы успешно зарегистрировались на нашем сайте.</h3>
-    <h4 style="background-color: black; color:blanchedalmond;">Для подтверждения регистрации перейдите по ссылке</h4>
-    <p>Ссылка для подтверждения регистрации одноразовая и действуют в течение 48 часов с момента получения данного письма.</p>
-    <a href="{{client_link}}">Подтвердить регистрацию</a>
+    <div class="content">
+        <div class="wrapper">
+            <div class="mail-header"><img src="{{site_url}}/lansot-logo-small.png" alt=""></div>
+            <h2>{{client_name}}, вы успешно зарегистрировались на нашем сайте.</h2>
+            <p>Для подтверждения регистрации перейдите по ссылке.</p>
+            <p>Ссылка для подтверждения регистрации одноразовая и действуют в течение 48 часов с момента получения
+                данного письма.
+            </p>
+            <a href="{{client_link}}">Подтвердить регистрацию</a>
+            <p></p>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -133,6 +133,14 @@ router.post('/checkout', async function (req, res) {
 
         let newOrder = await insertData('INSERT INTO orders (id, client_name, client_phone, client_email, client_id, delivery_option, payment_option, delivery_address, delivery_price, np_address, order_items, total, order_status) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.body.name, req.body.phone, req.body.email, req.body.client_id, req.body.delivery_option, req.body.payment_option, req.body.delivery_address, req.body.delivery_price, req.body.np_address, req.body.order, req.body.total, "new"])
 
+        let productsDetails = await getRawData('SELECT id, ref, uri, title, cover_img, color, size, price FROM products WHERE id IN (' + req.body.pid.toString() + ')', false)
+
+        let orderDetails = productsDetails.map((item, index) => {
+            item.qty = req.body.qty[index]
+            item.total = req.body.qty[index] * item.price
+            return item
+        })
+
         let orderItems = combine(req.body.pid, req.body.item_title, req.body.qty, req.body.item_price)
 
         if (newOrder) {
@@ -143,8 +151,16 @@ router.post('/checkout', async function (req, res) {
                 subject: 'Ваш заказ №' + newOrder.insertId + ' принят',
                 template: 'checkout_client_email',
                 context: {
+                    site_url: req.headers.origin,
                     client_name: req.body.name,
-                    order_id: newOrder.insertId
+                    order_id: newOrder.insertId,
+                    delivery_option: req.body.delivery_option,
+                    payment_option: req.body.payment_option,
+                    delivery_address: req.body.delivery_address,
+                    delivery_price: req.body.delivery_price,
+                    np_address: req.body.np_address,
+                    order_total: req.body.total,
+                    order_details: orderDetails
                 }
             }
             let salesMail = {
@@ -157,7 +173,8 @@ router.post('/checkout', async function (req, res) {
                     orders: orderItems,
                     order_total: req.body.total,
                     delivery: `Способ доставка: ${req.body.delivery_option}; ${req.body.delivery_address} / НП: ${req.body.np_address}`,
-                    payment: req.body.payment_option
+                    payment: req.body.payment_option,
+                    delivery_price: req.body.delivery_price
                 }
             }
             let info = await mailer.sendMail(customerMail)

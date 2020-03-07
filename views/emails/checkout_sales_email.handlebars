@@ -5,12 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
 </head>
 
 <body>
     <h3>Новый заказ №{{order_id}}</h3>
     <h4>Детали заказа:</p>
-        <table>
+        <table border="1px">
             <thead>
                 <tr>
                     <td>Код товара</td>
@@ -26,9 +36,15 @@
                             <td>{{this.pid}}</td>
                             <td>{{this.item_title}}</td>
                             <td>{{this.qty}}</td>
-                            <td>{{this.item_price}}</td>
+                            <td style="text-align: right;">{{this.item_price}}</td>
                         </tr>
                     {{/each}}
+                    <tr>
+                        <td>-</td>
+                        <td>Доставка</td>
+                        <td>-</td>
+                        <td style="text-align: right;">{{delivery_price}}</td>
+                    </tr>
                 </tbody>
             {{/if}}
         </table>
