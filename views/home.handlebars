@@ -1,6 +1,6 @@
-{{> header }}
-<main>
-    <div class="wrapper">
+<div class="wrapper">
+    {{> header }}
+    <main>
         {{> hero }}
         <section class="content">
             <div class="top-products row row-cols-1 row-cols-md-2 row-cols-lg-4 products-container">
@@ -22,13 +22,10 @@
                                 <span class="red">Нет в наличии</span>
                             {{/if}}
                         </div>
-                        {{!-- <button type="button" class="add-to-cart-s" data-id="{{this.id}}" {{#if this.stock}}{{else}}disabled{{/if}}>
-                        <i class="far fa-shopping-cart"></i>
-                    </button> --}}
                     </div>
                 {{/each}}
             </div>
         </section>
-    </div>
-</main>
+    </main>
+</div>
 {{> footer }}

@@ -8,11 +8,12 @@ body {
 }
 
 header {
-    max-width: 1920px;
+    max-width: 1600px;
     height: 104px;
     position: relative;
     z-index: 999;
     width: 100%;
+    margin: 0 auto;
 }
 
 .wrapper {
@@ -477,17 +478,17 @@ h4 {
     .hero > div {
         /* height: 100vh; */
         height: 400px !important;
-        width: 100vw !important;
+        /* width: 100vw !important; */
     }
     #carouselFade > div > div.carousel-item > img {
         object-position: 0 0 !important;
-        width: auto !important;
+        /* width: auto !important; */
         height: 400px;
     }
 
     .hero > div > div {
         height: 400px;
-        width: 100vw;
+        /* width: 100vw; */
     }
     .hero-caption {
         padding: 32px;
@@ -534,6 +535,13 @@ nav {
     /* width: 100%; */
     
 }
+.top-nav > div > a {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #333333;
+    /* width: 100%; */
+    margin-left: 2rem;  
+}
 .top-nav {
     margin-left: 48px;
 }
@@ -559,6 +567,15 @@ nav > a {
     position: relative;
 }
 
+
+.mobile-menu-modal > div {
+    margin: 0 !important;
+}
+.mobile-menu-modal > div > div {
+    width: 100vw;
+    border-radius: 0px !important;
+    height: 100vh;
+}
 
 /* |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 
@@ -1074,9 +1091,26 @@ footer {
 }
 
 .mobile-menu {
-    padding: 24px 0;
-    margin-bottom: 32px;
-    background-color: #333333;
+    margin: 0;
+    padding: 32px;
+    list-style-type: none;
+}
+.mobile-menu-item {
+    color: #222222;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    padding: 0;
+    font-weight: 500;
+    outline: none;
+}
+ul.mobile-menu > li {
+    margin: 24px 0;
+}
+ul.mobile-menu > li > a {
+    color: #222222;
+    font-size: 1.5rem;
+    margin: 24px 0;
 }
 
 .mobile-menu > a {
@@ -1440,6 +1474,41 @@ a:hover {
 }
 
 @media (max-width: 576px) {
+    .wrapper {
+        padding: 0 16px;
+    }
+    header {
+
+    }
+    .top-nav {
+        display: none !important;
+    }
+    .logo {
+        width: 100px;
+    }
+    .mobile-nav {
+        display: block !important;
+    }
+    .mobile-nav > button {
+        background: none;
+        border: none;
+        margin-right: 1.5rem;
+        font-size: 1.5rem;
+        color: #222222;
+    }
+    .mobile-sub-menu {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    .mobile-sub-menu > li {
+        margin: 24px 0;
+    }
+    .mobile-sub-menu > li > a {
+        color: #222222;
+        font-size: 1rem;
+    }
+
     .top-products > * {
         max-width: calc(100% - 24px) !important;
         flex: 0 0 calc(100% - 24px) !important;

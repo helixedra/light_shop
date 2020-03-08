@@ -1,76 +1,117 @@
-<div class="wrapper">
-    <!--Alerts-->
-    <div class="alert alert-success m-top-2" role="alert" style="display:none;" id="loginSuccess">
-        <div class="login-msg-success">
-            {{messages.success}}
-        </div>
+<!--Alerts-->
+<div class="alert alert-success m-top-2" role="alert" style="display:none;" id="loginSuccess">
+    <div class="login-msg-success">
+        {{messages.success}}
     </div>
-    <!--Alerts-->
+</div>
+<!--Alerts-->
+<div class="modal fade bd-example-modal-lg mobile-menu-modal" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
 
-    <header class="home-header d-flex align-items-center justify-content-between">
-        <div class="left-header d-flex align-items-center">
-            <a href="/" class="logo"></a>
-            <nav class="top-nav">
-                <div id="catalog-menu-container">
-                    <div class="catalog-button">Каталог</div>
-                    <ul class="dropdown-menu" id="catalog-menu">
-                        {{#each categories}}
-                            <li><a href="/products/c/{{ref}}">{{title}}</a></li>
-                        {{/each}}
-                    </ul>
-                </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close reset-btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="far fa-times"></i></span>
+                </button>
+            </div>
+            <nav>
+                <ul class="mobile-menu">
+                    <li>
+                        <a href="/">Главная</a>
+                    </li>
+                    <li>
+                        <div class="accordion" id="accordionMenu">
+                            <button class="mobile-menu-item" type="button" data-toggle="collapse"
+                                data-target="#mobile-catalog-menu" aria-expanded="true"
+                                aria-controls="mobile-catalog-menu">
+                                Каталог
+                            </button>
+                            <div id="mobile-catalog-menu" class="collapse" data-parent="#accordionMenu">
+                                <ul class="mobile-sub-menu">
+                                    {{#each categories}}
+                                        <li><a href="/products/c/{{ref}}">{{title}}</a></li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/contacts">Контакты</a>
+                    </li>
+
+                </ul>
             </nav>
         </div>
-        <div class="top-buttons-container">
-            <button type="button" class="top-button d-none d-sm-inline-flex" data-toggle="modal"
-                data-target="#cartModal">
-                <i class="far fa-shopping-cart"></i>Корзина<span class="cart-counter"></span>
-            </button>
-
-            <!--mobile cart button-->
-            <button type="button" class="top-button d-inline-flex d-sm-none" data-toggle="modal"
-                data-target="#cartModal">
-                <i class="far fa-shopping-cart"></i>
-            </button>
-            <button type="button" class="top-button d-inline-flex d-sm-none" id="guest-menu-mobile" data-toggle="modal"
-                data-target="#loginModal">
-                <i class="far fa-user-circle"></i>
-            </button>
-            <button type="button" class="top-button d-inline-flex d-sm-none" id="user-menu-mobile"
-                style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="far fa-user-circle"></i>
-            </button>
-            <!--mobile cart button-->
-
-            <!--Show for guests-->
-            <button type="button" class="top-button d-none d-sm-inline-flex" id="guest-menu" data-toggle="modal"
-                data-target="#loginModal">
-                <i class="far fa-user-circle"></i>Войти
-            </button>
-            <!--Show for guests-->
-
-            <!--Show for registred users-->
-            <button type="button" class="top-button d-none d-sm-inline-flex" id="user-menu"
-                style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="far fa-user-circle"></i><span id="user-name"></span>
-            </button>
-
-            <div class="dropdown-menu dropdown-menu-right account-menu">
-                <a href="/user/profile">Личные данные</a>
-                <a href="/user/orders">Мои заказы</a>
-                <a href="/user/logout">Выйти</a>
-            </div>
-            <!--Show for registred users-->
-        </div>
-
-
-    </header>
-    {{> cart_modal }}
-    {{> login_modal }}
-
-    <script>
-        $(document).ready(function () {
-            statusLogin()
-        })
-    </script>
+    </div>
 </div>
+<header class="home-header d-flex align-items-center justify-content-between">
+    <div class="left-header d-flex align-items-center">
+        <nav class="mobile-nav d-none">
+            <button type="button" class="reset-btn" data-toggle="modal" data-target=".bd-example-modal-lg"><i
+                    class="fal fa-bars"></i></button>
+        </nav>
+        <a href="/" class="logo"></a>
+        <nav class="top-nav d-flex">
+            <div id="catalog-menu-container">
+                <div class="catalog-button">Каталог</div>
+                <ul class="dropdown-menu" id="catalog-menu">
+                    {{#each categories}}
+                        <li><a href="/products/c/{{ref}}">{{title}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div><a href="/contacts">Контакты</a></div>
+        </nav>
+    </div>
+    <div class="top-buttons-container">
+        <button type="button" class="top-button d-none d-sm-inline-flex" data-toggle="modal" data-target="#cartModal">
+            <i class="far fa-shopping-cart"></i>Корзина<span class="cart-counter"></span>
+        </button>
+
+        <!--mobile cart button-->
+        <button type="button" class="top-button d-inline-flex d-sm-none" data-toggle="modal" data-target="#cartModal">
+            <i class="far fa-shopping-cart"></i>
+        </button>
+        <button type="button" class="top-button d-inline-flex d-sm-none" id="guest-menu-mobile" data-toggle="modal"
+            data-target="#loginModal">
+            <i class="far fa-user-circle"></i>
+        </button>
+        <button type="button" class="top-button d-inline-flex d-sm-none" id="user-menu-mobile"
+            style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="far fa-user-circle"></i>
+        </button>
+        <!--mobile cart button-->
+
+        <!--Show for guests-->
+        <button type="button" class="top-button d-none d-sm-inline-flex" id="guest-menu" data-toggle="modal"
+            data-target="#loginModal">
+            <i class="far fa-user-circle"></i>Войти
+        </button>
+        <!--Show for guests-->
+
+        <!--Show for registred users-->
+        <button type="button" class="top-button d-none d-sm-inline-flex" id="user-menu"
+            style="display: none !important;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="far fa-user-circle"></i><span id="user-name"></span>
+        </button>
+
+        <div class="dropdown-menu dropdown-menu-right account-menu">
+            <a href="/user/profile">Личные данные</a>
+            <a href="/user/orders">Мои заказы</a>
+            <a href="/user/logout">Выйти</a>
+        </div>
+        <!--Show for registred users-->
+    </div>
+
+
+</header>
+{{> cart_modal }}
+{{> login_modal }}
+
+<script>
+    $(document).ready(function () {
+        statusLogin()
+    })
+</script>
