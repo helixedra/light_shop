@@ -530,20 +530,20 @@ h4 {
 
 nav {
     font-weight: 500;
-    font-size: 1.1rem;
-    color: #333333;
+    font-size: 1rem;
+    color: #222222;
     /* width: 100%; */
     
 }
 .top-nav > div > a {
     font-weight: 500;
-    font-size: 1.1rem;
-    color: #333333;
+    font-size: 1rem;
+    color: #222222;
     /* width: 100%; */
-    margin-left: 2rem;  
+    margin-left: 4rem;  
 }
 .top-nav {
-    margin-left: 48px;
+    margin-left: 4rem;
 }
 
 nav > a {
