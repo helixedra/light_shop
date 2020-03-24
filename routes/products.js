@@ -35,6 +35,8 @@ router.get('/c/:ref', async function (req, res) {
 
     let getAllCategories = await categories()
 
+
+
     let categoryData = getAllCategories.filter(category => category.ref === req.params.ref)
     categoryData = { ...categoryData[0] }
 
@@ -104,6 +106,11 @@ router.get('/p/:id', async function (req, res) {
         // Get product data from DB by id and options
         let productData = await getData('SELECT * FROM products JOIN sizes ON products.size = sizes.size_id WHERE products.id = ? AND products.color = ? AND products.size = ?', [req.params.id, req.query.color, req.query.size])
 
+        if (productData === null) {
+            res.status(404).render('404')
+            return
+        }
+
         // console.log(productData); // obj
 
         // Get all catagories data from DB
@@ -114,9 +121,6 @@ router.get('/p/:id', async function (req, res) {
         // Select data for specific category
         let categoryData = getAllCategories.filter(category => category.id === productData.category)
         categoryData = { ...categoryData[0] }
-
-        // console.log(productData);
-
 
         // Get data from DB of all possible color available for selected product
         let productColorOptions = await getData('SELECT products.id, products.color, products.product_group, products.ref, products.size, colors.color_id, colors.color_name, colors.color_hex FROM products JOIN colors ON products.color = colors.color_id WHERE products.product_group = ?', productData.product_group)

@@ -20,6 +20,7 @@ router.get('/', async function (req, res) {
 router.get('/delivery', async function (req, res) {
     res.render('delivery', {
         title: seo.delivery.title,
+        categories: await categories(),
         description: seo.delivery.description,
     })
 })
@@ -27,6 +28,7 @@ router.get('/delivery', async function (req, res) {
 router.get('/contacts', async function (req, res) {
     res.render('contacts', {
         title: seo.contacts.title,
+        categories: await categories(),
         description: seo.contacts.description,
     })
 })

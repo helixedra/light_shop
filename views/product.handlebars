@@ -1,7 +1,6 @@
-{{> header }}
-<main>
-
-    <div class="wrapper">
+<div class="wrapper">
+    {{> header }}
+    <main>
         <section class="content">
             <!--Breadcrumps-->
             <div class="breadcrumps">
@@ -35,7 +34,7 @@
                     <!--Right Column-->
                     <div class="col">
 
-                        <div class="item-code">Код товара: <span>{{product.id}}</span></div>
+                        <div class="item-code">Код товара: <span>{{product.sku}}</span></div>
 
                         <h1>{{product.title}}</h1>
 
@@ -61,7 +60,7 @@
                         <div class="product-dimensions d-flex">
 
                             <div class="dimension-item">
-                                <div class="dimension-label">Размер Ш х Г х В</div>
+                                <div class="dimension-label">Ширина х Высота х Глубина</div>
                                 <div class="btn-group">
                                     <button type="button" class="btn drop-btn dropdown-toggle dim-btn"
                                         data-toggle="dropdown" aria-haspopup="true"
@@ -138,9 +137,10 @@
             </section>
         {{else}}
         {{/if}}
-    </div>
-</main>
-<script src="/js/product.js"></script>
+
+    </main>
+    <script src="/js/product.js"></script>
+</div>
 
 
 {{> footer }}
