@@ -40,7 +40,7 @@ function cartItems(data) {
                     <div class="item-title">
                         <a href="/products/p/${value.uri}" class="reset-link">${value.title}</a>
                     </div>
-                    <div class="item-code">Код товара: <span>${value.id}</span></div>
+                    <div class="item-code">Код товара: <span>${value.sku}</span></div>
                 </div>
                 <div class="item-price">${numFormat(value.price)} ₴</div>
                 <div class="item-qty">

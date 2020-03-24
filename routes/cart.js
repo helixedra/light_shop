@@ -11,7 +11,7 @@ const myCache = new NodeCache({ stdTTL: 120, checkperiod: 140 });
 // Get data from DB and save to cache
 async function cacheCart(ids) {
     // Get and save data to cache
-    let data = (ids.length !== 0) ? await getRawData('SELECT id, uri, cover_img, title, price FROM products WHERE id IN (' + ids + ') ORDER BY FIND_IN_SET(id,"' + ids + '")', false) : false
+    let data = (ids.length !== 0) ? await getRawData('SELECT id, uri, cover_img, title, price, sku FROM products WHERE id IN (' + ids + ') ORDER BY FIND_IN_SET(id,"' + ids + '")', false) : false
     let cartData = {
         ids: ids,
         data: data
@@ -93,12 +93,13 @@ router.get('/checkout', async function (req, res) {
 })
 
 
-function combine(pid, item_title, qty, item_price) {
+function combine(pid, item_title, qty, item_price, sku) {
     let data = []
     if (Array.isArray(pid)) {
         for (let i = 0; pid.length > i; i++) {
             data.push({
                 pid: pid[i],
+                sku: sku[i],
                 item_title: item_title[i],
                 qty: qty[i],
                 item_price: item_price[i]
@@ -107,6 +108,7 @@ function combine(pid, item_title, qty, item_price) {
     } else {
         data = [{
             pid: pid,
+            sku: sku,
             item_title: item_title,
             qty: qty,
             item_price: item_price
@@ -145,7 +147,7 @@ router.post('/checkout', async function (req, res) {
 
             let newOrder = await insertData('INSERT INTO orders (id, client_name, client_phone, client_email, client_id, delivery_option, payment_option, delivery_address, delivery_price, np_address, order_items, total, order_status, token) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.body.name, req.body.phone, req.body.email, req.body.client_id, req.body.delivery_option, req.body.payment_option, req.body.delivery_address, req.body.delivery_price, req.body.np_address, req.body.order, req.body.total, "new", req.body.token])
 
-            let productsDetails = await getRawData('SELECT id, ref, uri, title, cover_img, color, size, price FROM products WHERE id IN (' + req.body.pid.toString() + ')', false)
+            let productsDetails = await getRawData('SELECT id, ref, uri, title, cover_img, color, size, price, sku FROM products WHERE id IN (' + req.body.pid.toString() + ')', false)
 
             let orderDetails = productsDetails.map((item, index) => {
                 item.qty = req.body.qty[index]
@@ -153,7 +155,7 @@ router.post('/checkout', async function (req, res) {
                 return item
             })
 
-            let orderItems = combine(req.body.pid, req.body.item_title, req.body.qty, req.body.item_price)
+            let orderItems = combine(req.body.pid, req.body.item_title, req.body.qty, req.body.item_price, req.body.sku)
 
             if (newOrder) {
                 //If data has been add to DB then send mail with options
@@ -181,6 +183,11 @@ router.post('/checkout', async function (req, res) {
                     subject: 'Новый заказ №' + newOrder.insertId + '',
                     template: 'checkout_sales_email',
                     context: {
+                        client: {
+                            name: req.body.name,
+                            email: req.body.email,
+                            phone: req.body.phone
+                        },
                         order_id: newOrder.insertId,
                         orders: orderItems,
                         order_total: req.body.total,

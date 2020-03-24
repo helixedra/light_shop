@@ -19,6 +19,12 @@
 
 <body>
     <h3>Новый заказ №{{order_id}}</h3>
+    {{#if client}}
+        <p>Клиент: <b>{{client.name}}</b></p>
+        <p>Email: <b>{{client.email}}</b></p>
+        <p>Телефон: <b>{{client.phone}}</b></p>
+    {{/if}}
+
     <h4>Детали заказа:</p>
         <table border="1px">
             <thead>
@@ -33,7 +39,7 @@
                 <tbody>
                     {{#each orders}}
                         <tr>
-                            <td>{{this.pid}}</td>
+                            <td>{{this.sku}} (id:{{this.pid}})</td>
                             <td>{{this.item_title}}</td>
                             <td>{{this.qty}}</td>
                             <td style="text-align: right;">{{this.item_price}}</td>
